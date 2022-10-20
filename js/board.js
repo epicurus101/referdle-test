@@ -39,7 +39,6 @@ export class Board {
             let square = document.createElement("div");
             square.classList.add("square");
             square.classList.add("animate__animated");
-          //  square.style.setProperty('--animate-duration', '10s');
             square.setAttribute("id", `b${index}-${i + 1}`);
             this.contDiv.appendChild(square);
             
@@ -66,6 +65,14 @@ export class Board {
         return comparisons
     }
 
+    getSquare(i){
+        console.log('got as far as function');
+        if (i < 1 || i > 25) {
+            return document.getElementById(`b${this.index}-1`);
+        }
+        return document.getElementById(`b${this.index}-${i}`);
+    }
+
 
     loadFromSave(object){
         this.targetWord = object.targetWord;
@@ -83,7 +90,9 @@ export class Board {
             console.log("filling in", guess)
             for (let ind = 0; ind < guess.length; ind++) {
                 const element = guess[ind];
+                console.log('about to call getSquare');
                 const availableSpaceEl = document.getElementById(`b${this.index}-${this.availableSpace}`);
+             //   const availableSpaceEl = getSquare(this.availableSpace) //WHY DOESN'T THIS WORK
                 availableSpaceEl.textContent = element;
                 this.availableSpace += 1;
             }
