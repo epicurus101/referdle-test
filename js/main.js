@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stats = loadStats()
         dictionary = await loadDictionary();
         createBoards()
+        keyboard.giveBoardsRef(boards);
         keyboard.changeInput(true);
         cycleBoard();
 
