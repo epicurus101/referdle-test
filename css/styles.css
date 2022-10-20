@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+  @font-face {
+    font-family: customWebFont;
+    src: url(https://epicurus101.github.io/referdle/fonts/PublicSans-Black.woff2);
+    font-weight:bold;
+  }
+
+  @font-face {
+    font-family: customWebFont;
+    src: url(https://epicurus101.github.io/referdle/fonts/PublicSans-Medium.woff2);
+    font-weight:normal;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    font-family: customWebFont;
+  }
+
+  :root {
+    --animate-duration: 2000ms;
+  }
+  
+  #container {
+    display: flex;
+    background-color: black;
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #game {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-size-adjust: auto;
+  }
+  
+  .title {
+    color: gainsboro;
+    font-size: 1.5rem;
+    margin: 0.4rem 0 0.4rem 0;
+    text-align: center;
+    font-family: customWebFont;
+    font-weight: bold;
+
+
+  }
+  
+  #board-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .board {
+    border: 1px solid rgb(58, 58, 60);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+  }
+
+  .board-title {
+    color: gainsboro;
+    font-size: 1rem;
+    margin: 0.4rem;
+    text-align: left;
+    font-family: customWebFont;
+  }
+
+  .square-container {
+    border-top: 1px solid rgb(58, 58, 60);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+  }
+  
+  .square {
+    border: 2px solid rgb(58, 58, 60);
+    min-width: 10px;
+    aspect-ratio: 1 / 1;
+    color: gainsboro;
+    text-transform: uppercase;
+    padding: 0px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  #keyboard-container {
+    height: 200px;
+  }
+  
+  .keyboard-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto 4px;
+    touch-action: manipulation;
+  }
+  
+  .keyboard-row button {
+    font-family: inherit;
+    font-weight: bold;
+    border: 1px solid rgb(58, 58, 60);;
+    padding: 0;
+    height: 58px;
+    cursor: pointer;
+    background-color: rgb(129, 131, 132);
+    color: rgb(215, 218, 220);
+    flex-grow: 1;
+    text-transform: uppercase;
+    margin-right: 4px;
+    border-radius: 4px;
+    user-select: none;
+  }
+  
+  .keyboard-row button.wide-button {
+    flex-grow: 1.5;
+  }
+  
+  .spacer-half {
+    flex-grow: 0.5;
+  }
+
+  .spacer-full {
+    flex-grow: 1.0;
+  }
+
+  .prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+  /* MODAL STUFF */
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  } 
+
+
+  .modal-body {
+    white-space: pre-wrap;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

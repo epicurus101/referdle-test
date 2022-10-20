@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referdle</title>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/board.js"></script>
+    <script type="module" src="js/helpers.js"></script>
+    <script type="module" src="modals/helpModal.js"></script>
+    <script type="module" src="modals/statsModal.js"></script>
+    <script type="module" src="modals/endGameModal.js"></script>
+    <script type="module" src="js/storage.js"></script>
+    <script type="module" src="js/dictionary.js"></script>
+    <script type="module" src="js/keyboard.js"></script>
+    <script src="js/longPressEvent.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+</head>
+<body>
+    <div id="container">
+        <div id="game">
+            <header>
+                <h1 class="title" id="big-title">REFERDLEv0.51</h1>
+                <div class="spacer-full"></div>
+                <input type="image" src="images/graph.png" id="stats-button" name="stats" width="50" height="50" alt="stats"/>  
+                <input type="image" src="images/help.png" id="help-button" name="help" width="50" height="50" alt="help"/>  
+            </header>
+            <div id="board-container">
+            </div>
+            <div id="keyboard-container" class="prevent-select">
+                <div class="keyboard-row" class="prevent-select">
+                    <button data-key="q">q</button>
+                    <button data-key="w">w</button>
+                    <button data-key="e">e</button>
+                    <button data-key="r">r</button>
+                    <button data-key="t">t</button>
+                    <button data-key="y">y</button>
+                    <button data-key="u">u</button>
+                    <button data-key="i">i</button>
+                    <button data-key="o">o</button>
+                    <button data-key="p">p</button>
+                </div>
+                <div class="keyboard-row" class="prevent-select">
+                    <div class="spacer-half"></div>
+                    <button data-key="a">a</button>
+                    <button data-key="s">s</button>
+                    <button data-key="d">d</button>
+                    <button data-key="f">f</button>
+                    <button data-key="g">g</button>
+                    <button data-key="h">h</button>
+                    <button data-key="j">j</button>
+                    <button data-key="k">k</button>
+                    <button data-key="l">l</button>
+                    <div class="spacer-half"></div>
+                </div>
+                <div class="keyboard-row" class="prevent-select">
+                    <button data-key="enter" class="wide-button">Enter</button>
+                    <button data-key="z">z</button>
+                    <button data-key="x">x</button>
+                    <button data-key="c">c</button>
+                    <button data-key="v">v</button>
+                    <button data-key="b">b</button>
+                    <button data-key="n">n</button>
+                    <button data-key="m">m</button>
+                    <button data-key="del" class="wide-button">Del</button>
+                </div>
+            </div>
+            
+            <div id="helpModal" class = "modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" class="prevent-select">&times;</span>
+                        <h2>How to Play</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the Modal Body</p>
+                        <p>Some other text...</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+            <div id="endGameModal" class = "modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" class="prevent-select">&times;</span>
+                        <h2>Game Over</h2>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="statsModal" class = "modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" class="prevent-select">&times;</span>
+                        <h2>Your Statistics<h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Coming soon!</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
