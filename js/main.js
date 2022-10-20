@@ -83,10 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const comparisonResult = getComparison(currentWordArr, targetWordArr);
 
         if (currentWordArr.length !== 5) {
-            window.alert("word must be five letters");
+            const event = new CustomEvent('showDictModal', {detail: {
+                board: board,
+                message: "MUST BE FIVE LETTERS"
+              }});
+            document.dispatchEvent(event);
             return;
         } else if (!dictionary.includes(currentWord)) {
-            window.alert(`sorry, ${currentWord} is not in my dictionary`)
+            const event = new CustomEvent('showDictModal', {detail: {
+                board: board,
+                message: "NOT IN DICTIONARY"
+              }});
+            document.dispatchEvent(event);
             return;
         }
         const interval = 200;
