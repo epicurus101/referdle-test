@@ -33,6 +33,7 @@ function setPosition(board){
     dictModal.style.width = (cumRight-cumLeft)+'px'
     dictModal.style.lineHeight = dictModal.offsetHeight+'px'
     dictModal.style.borderRadius = (unit * 3)+'px'
+    dictModal.style.fontSize = `${square1.offsetHeight * 0.35}px`
 
     dictModal.classList.remove("animate__tada")
     dictModal.classList.remove("animate__fadeOutDown")
