@@ -76,6 +76,7 @@
     flex-direction: column;
     flex: 1;
     box-sizing: border-box;
+    position: relative
   }
 
   .board-title {
@@ -196,4 +197,13 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  #dictModal {
+    position: absolute;
+    z-index: 1;
+    background-color: orange;
+    text-align: center;
+    font-family: customWebFont;
+    font-size: 1rem;
   }
