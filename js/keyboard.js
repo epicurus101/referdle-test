@@ -7,8 +7,6 @@ const keyboard = (function () {
 
     let board;
 
-    let boards = []
-
     let allowInput = false;
     
     function initialise() {
@@ -31,18 +29,9 @@ const keyboard = (function () {
         }
     }
 
-    function giveBoardsRef(boards){
-        for (let index = 0; index < boards.length; index++) {
-            const element = boards[index];
-            boards.push(element)
-        }
-        console.log("boards assigned")
-        console.log(boards)
-    }
 
     document.addEventListener('boardSelect', (e) => {
         board = e.detail.board;
-        console.log("but do we still have boards eh?", boards)
         reset();
         update();
     });
@@ -67,7 +56,6 @@ const keyboard = (function () {
     }
 
     function longpressHandler(letter) {
-        console.log("do we still have boards?", boards)
         if (!standardKeys.includes(letter)) {
             return;
         } else if (board.excludedLetters.has(letter)) {
@@ -82,22 +70,13 @@ const keyboard = (function () {
     }
 
     function intelligentExclusion(excluding, letter) {
-        let startBoard = board.index + 1
-        console.log(boards)
-        if (startBoard > 5) {return}
-        for (let index = startBoard; index < 6; index++) {
-            if (boards[index].guessedWordCount > 0) {
-                return
-            }
-        }
-        // confirmed that remaining boards are clean!
-        for (let index = startBoard; index < 6; index++) {
-            if (excluding) {
-                boards[index].excludedLetters.add(letter)
-            } else {
-                boards[index].excludedLetters.delete(letter)
-            }
-        }
+
+        const event = new CustomEvent('exclusion', {detail: {
+            index: (board.index+1),
+            letter: letter,
+            excluding: excluding
+          }});
+        document.dispatchEvent(event);
     }
 
     function reset(){ //keyboard
@@ -196,7 +175,6 @@ const keyboard = (function () {
     } )
 
     return {
-        giveBoardsRef: giveBoardsRef,
         initialise: initialise,
         reset: reset,
         changeInput: changeInput,

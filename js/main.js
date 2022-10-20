@@ -32,6 +32,27 @@ document.addEventListener("DOMContentLoaded", () => {
         cycleBoard()
     })
 
+    document.addEventListener('exclusion', (e) => {
+        if (e.detail.index > 5) {return}
+        for (let index = e.detail.index; index < 6; index++) {
+            if (boards[index].guessedWordCount > 0) {
+                return
+            }
+        }
+        // confirmed that remaining boards are clean!
+        for (let index = e.detail.index; index < 6; index++) {
+            if (e.detail.excluding) {
+                boards[index].excludedLetters.add(e.detail.letter)
+            } else {
+                boards[index].excludedLetters.delete(e.detail.letter)
+            }
+        }
+
+
+
+    })
+
+
     initialisation();
 
     async function initialisation() {
@@ -40,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         stats = loadStats()
         dictionary = await loadDictionary();
         createBoards()
-        keyboard.giveBoardsRef(boards);
         keyboard.changeInput(true);
         cycleBoard();
 
