@@ -176,14 +176,6 @@
     background-color: rgba(0,0,0,0.4);
   }
 
-  #nextPuzzleModal {
-    display: none;
-    position: fixed;
-    margin: auto;
-
-    z-index: 1;
-
-  }
 
   .modal-content {
     background-color: #fefefe;
@@ -226,16 +218,17 @@
   }
 
   #nextPuzzleModal {
-    position: absolute;
-    margin: auto;
-    width: 500px;
-    height: 50px;
-    top: 70%;
+
+    display: none;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    height: 200px;
 
   }
 
   #nextPuzzleModal .modal-body {
-    line-height: 50px;
+    line-height: 40px;
   }
 
   /* CIRCLE STUFF */
