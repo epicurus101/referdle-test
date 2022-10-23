@@ -221,12 +221,25 @@
   #endPatternHolder {
     height: 300px;
     width: 300px;
+    z-index: 4;
     position: relative;
     margin: 20px auto;
     top: 0%;
     left: 0%;
     border: 1px solid rgb(0, 64, 255);
     background-color: black;
+  }
+
+  #endPatternText {
+    position: relative;
+    margin: auto;
+   /* justify-content: center; */
+    text-align: center;
+    font-family: customWebFont;
+    line-height: 300px;
+    font-size: 50px;
+    font-weight: bold;
+    color: gainsboro;
   }
 
 

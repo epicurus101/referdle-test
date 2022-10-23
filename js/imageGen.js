@@ -2,7 +2,7 @@ import { getComparison } from './logic.js';
 
 const imageGen = (function () {
 
-    function endGameImage(boards) {
+    function endGameImage(boards, guesses) {
 
         let trinaryArr = []
 
@@ -66,6 +66,11 @@ const imageGen = (function () {
             angle -= miniGap // reverse out last addition
             angle += maxiGap // extra gap
         }
+
+        let text = document.createElement("div")
+        text.setAttribute("id", "endPatternText")
+        text.textContent = guesses
+        holder.appendChild(text)
 
         return holder;
     }

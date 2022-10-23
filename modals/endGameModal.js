@@ -20,7 +20,7 @@ document.addEventListener('endGame', (e) => {
 
     let footer = modal.querySelector('.modal-footer')
 
-   let holder = imageGen.endGameImage(e.detail.boards)
+   let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses)
    footer.appendChild(holder)
 
 });
@@ -42,7 +42,7 @@ function updateText(win, guesses) {
     const body = modal.querySelector('.modal-body')
 
     if (win == true) {
-        body.textContent = `\r\nVictory!\r\nYou completed today's Referdle in ${guesses} guesses.\r\n\r\n Well done!`
+        body.textContent = `\r\nVictory!\r\nYou completed today's Referdle in ${guesses}/25 guesses.\r\n\r\n Well done!`
     } else {
         body.textContent = `\r\nYou ran out of guesses for the word ${win}\r\nNever mind, try again tomorrow.\r\n\r\nOr you can keep on playing in Practice Mode`
     }
