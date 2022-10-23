@@ -1,4 +1,4 @@
-import { getComparison } from './logic.js';
+import { getComparison, uColours } from './contents.js';
 
 const keyboard = (function () {
 
@@ -27,6 +27,18 @@ const keyboard = (function () {
             })
         }
     }
+
+    document.addEventListener('keyboardDisappear', (e) => {
+        console.log('keyboard disappear called')
+        let kc = document.getElementById("keyboard-container")
+        kc.style.display = "none";
+    })
+
+    document.addEventListener('keyboardAppear', (e) => {
+        console.log('keyboard appear called')
+        let kc = document.getElementById("keyboard-container")
+        kc.style.display = "block";
+    })
 
 
     document.addEventListener('boardSelect', (e) => {
@@ -64,6 +76,7 @@ const keyboard = (function () {
         }
         reset();
         update();
+        document.dispatchEvent(new CustomEvent(`saveGame`))
     }
 
     function intelligentExclusion(excluding, letter) {
@@ -79,7 +92,7 @@ const keyboard = (function () {
     function reset(){ //keyboard
         for (let i = 0; i < keys.length; i++) {
             keys[i].customInfo = -2;
-            keys[i].style.backgroundColor = "rgb(58, 58, 60)";
+            keys[i].style.backgroundColor = uColours.midGrey;
         }
     }
 
@@ -113,15 +126,14 @@ const keyboard = (function () {
             return;
         } else {
             key.customInfo = newValue;  
-       //     key.style.borderStyle = "solid";
             if (newValue == -1) {
-                key.style.backgroundColor = "rgb(40, 0, 0)";
+                key.style.backgroundColor = uColours.darkBlue;
             } else if (newValue == 0) {
-                key.style.backgroundColor = "rgb(0, 0, 0)";
+                key.style.backgroundColor = uColours.darkGrey;
             } else if (newValue == 1) {
-                key.style.backgroundColor = "rgb(181, 159, 59)";
+                key.style.backgroundColor = uColours.yellow;
             } else if (newValue == 2) {
-                key.style.backgroundColor = "rgb(83, 141, 78)";
+                key.style.backgroundColor = uColours.green;
             }
         }
     }

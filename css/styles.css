@@ -31,6 +31,8 @@
     height: 100%;
     align-items: center;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   #game {
@@ -80,6 +82,7 @@
   }
 
   .board-title {
+
     color: gainsboro;
     font-size: 1rem;
     margin: 0.4rem;
@@ -127,8 +130,8 @@
   .keyboard-row button {
     font-family: inherit;
     font-weight: bold;
-    border: 1px solid rgb(58, 58, 60);;
     padding: 0;
+    border: 1px solid rgba(0,0,0,0.4);
     height: 58px;
     cursor: pointer;
     background-color: rgb(129, 131, 132);
@@ -173,6 +176,15 @@
     background-color: rgba(0,0,0,0.4);
   }
 
+  #nextPuzzleModal {
+    display: none;
+    position: fixed;
+    margin: auto;
+
+    z-index: 1;
+
+  }
+
   .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -213,6 +225,18 @@
     font-size: 1rem;
   }
 
+  #nextPuzzleModal {
+    position: absolute;
+    margin: auto;
+    width: 500px;
+    height: 50px;
+    top: 70%;
+
+  }
+
+  #nextPuzzleModal .modal-body {
+    line-height: 50px;
+  }
 
   /* CIRCLE STUFF */
 
@@ -226,7 +250,6 @@
     margin: 20px auto;
     top: 0%;
     left: 0%;
-    border: 1px solid rgb(0, 64, 255);
     background-color: black;
   }
 
@@ -244,6 +267,7 @@
 
 
   .circle {
+    z-index: 1;
     position: absolute;
     width: 20px;
     height: 10px;

@@ -1,4 +1,4 @@
-import { getComparison } from './logic.js';
+import { uColours } from './contents.js';
 
 const imageGen = (function () {
 
@@ -49,11 +49,11 @@ const imageGen = (function () {
                     holder.appendChild(block)
 
                     let result = trinaryArr[iB][iR][iL]
-                    let tileColor = "rgb(58, 58, 60)";
+                    let tileColor = uColours.darkGrey;
                     if (result == 1) {
-                        tileColor = "rgb(181, 159, 59)";
+                        tileColor = uColours.yellow;
                     } else if (result == 2) {
-                        tileColor = "rgb(83, 141, 78)";
+                        tileColor = uColours.green;
                     }
                     block.style.backgroundColor = tileColor;
                     block.style.borderColor = tileColor;

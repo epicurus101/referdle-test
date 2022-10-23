@@ -1,4 +1,4 @@
-import { getComparison, newPuzzle } from "./logic.js";
+import { getComparison, newPuzzle, uColours } from "./contents.js";
 
 export class Board {
     
@@ -30,9 +30,10 @@ export class Board {
         this.boardDiv.appendChild(this.contDiv);
 
         if (index == 0) {
-            this.boardDiv.style.borderColor = "rgb(150, 255, 150)"
+            this.boardDiv.style.borderColor = uColours.highlightGreen;
             this.title.textContent = "CLUE GRID"
-            this.title.style.color = "rgb(150, 255, 150)"
+            this.title.style.color = uColours.highlightGreen;
+            this.contDiv.style.borderTop = `1px solid ${uColours.highlightGreen}`
         }
 
         for (let i = 0; i < 25; i++) {
@@ -107,14 +108,17 @@ export class Board {
 
     highlightRow(index){
         for (let row = 0; row < 5; row++) {
-            let opacity = 0.6;
-            if (row == index) {
-                opacity = 1.0;
-            }
             for (let space = 0; space < 5; space++) {
                 let num = (row * 5) + space + 1
                 const element = document.getElementById(`b${this.index}-${num}`);
-                element.style.opacity = opacity;
+                if (row == index) {
+                    element.style.opacity = 1.0;
+                    element.style.border = `1px solid ${uColours.offWhite}`
+                } else {
+                    element.style.opacity = 0.8;
+                    element.style.border = `0px solid`
+                }
+
             }    
         }
     }
@@ -122,7 +126,7 @@ export class Board {
     switchOn(row, letter){
         let num = (row * 5) + letter + 1
         const element = document.getElementById(`b${this.index}-${num}`);
-        element.style.color = "rgba(220,220,220,255)";
+        element.style.color = uColours.offWhite;
     }
 
     getAllSquares(){
@@ -147,19 +151,17 @@ export class Board {
         let joinedArray = this.guessedWords.flat(1);
         let joinedComparisons = comparisons.flat(1);
 
-
-
         for (let i = 0; i < joinedArray.length; i++) {
             const letter = joinedArray[i];
             const result = joinedComparisons[i];
             const square = document.getElementById(`b${this.index}-${i+1}`);
             square.textContent = letter;
-            square.style.color = "rgba(0,0,0,0)"
-            let tileColor = "rgb(58, 58, 60)";
+            square.style.color = uColours.transparent;
+            let tileColor = uColours.darkGrey;
             if (result == 1) {
-                tileColor = "rgb(181, 159, 59)";
+                tileColor = uColours.yellow;
             } else if (result == 2) {
-                tileColor = "rgb(83, 141, 78)";
+                tileColor = uColours.green;
             }
             square.style.backgroundColor = tileColor;
             square.style.borderColor = tileColor;
@@ -182,8 +184,8 @@ export class Board {
         for (let i = 0; i < squares.length; i++) {
             const element = squares[i];
             element.textContent = ""
-            element.style.backgroundColor = "rgb(0, 0, 0)";
-            element.style.borderColor = "rgb(58, 58, 60)";
+            element.style.backgroundColor = uColours.black;
+            element.style.borderColor = uColours.darkGrey;
             element.classList.remove("animate__flipInX");
         }
     }
@@ -222,11 +224,11 @@ export class Board {
         const firstLetterID = guessedWord * 5 + 1;
         this.guessedWords[guessedWord].forEach((letter, letterIndex) => {
             setTimeout(() => {
-                let tileColor = "rgb(58, 58, 60)";
+                let tileColor = uColours.darkGrey;
                 if (comparisonResult[letterIndex] == 1) {
-                    tileColor = "rgb(181, 159, 59)";
+                    tileColor = uColours.yellow;
                 } else if (comparisonResult[letterIndex] == 2) {
-                    tileColor = "rgb(83, 141, 78)";
+                    tileColor = uColours.green;
                 }
                 
                 const letterID = firstLetterID + letterIndex;

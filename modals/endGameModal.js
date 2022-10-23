@@ -4,42 +4,44 @@ import {imageGen} from '../js/imageGen.js';
 const modal = document.getElementById("endGameModal");
 const span = modal.querySelector('.close');
 
-modal.onclick = function() {
-    startAgain()
+modal.onclick = function(e) {
+    e.stopPropagation();
+    closeModal();
+    return;
 }
 
-span.onclick = function() {
-    startAgain();
+span.onclick = function(e) {
+    e.stopPropagation();
+    closeModal();
+    return;
 }
 
 document.addEventListener('endGame', (e) => {
 
-    updateText(e.detail.win, e.detail.guesses)
-    modal.style.display = "flex"
-    modal.style.flexDirection = "column"
+    updateText(e.detail.win, e.detail.guesses);
+    modal.style.display = "flex";
+    modal.style.flexDirection = "column";
 
-    let footer = modal.querySelector('.modal-footer')
+    let footer = modal.querySelector('.modal-footer');
 
-   let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses)
-   footer.appendChild(holder)
-
+    let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses);
+    footer.appendChild(holder);
+    document.dispatchEvent(new CustomEvent(`keyboardDisappear`));
 });
 
 
-function startAgain() {
-    let footer = modal.querySelector('.modal-footer')
+function closeModal() {
+    let footer = modal.querySelector('.modal-footer');
     while (footer.hasChildNodes()) {
-        footer.removeChild(footer.lastChild)
+        footer.removeChild(footer.lastChild);
       }
     modal.style.display = "none";
-    const event = new CustomEvent('startAgain');
-    console.log(`starting again`)
-    document.dispatchEvent(event);
+    document.dispatchEvent(new CustomEvent(`reviewMode`));
 }
 
 
 function updateText(win, guesses) {
-    const body = modal.querySelector('.modal-body')
+    const body = modal.querySelector('.modal-body');
 
     if (win == true) {
         body.textContent = `\r\nVictory!\r\nYou completed today's Referdle in ${guesses}/25 guesses.\r\n\r\n Well done!`

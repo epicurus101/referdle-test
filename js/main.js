@@ -1,9 +1,18 @@
-import { Board } from './board.js';
-import { getComparison, newPuzzle } from './logic.js';
-import {saveCurrentState, loadCurrentState, deleteSave, saveStats, loadStats} from './storage.js'
-import {loadDictionary} from './dictionary.js';
-import {keyboard} from './keyboard.js';
-import {imageGen} from './imageGen.js';
+import { 
+    Board,
+    getComparison,
+    newPuzzle,
+    saveCurrentState,
+    loadCurrentState,
+    deleteSave,
+    saveStats,
+    loadStats,
+    loadDictionary,
+    keyboard,
+    imageGen,
+    uColours,
+    } from './contents.js';
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -18,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (num == 0 || boards[e.detail.index].success) {return}
         for (let i = 1; i < boards.length; i++) {
             const element = boards[i];
-            element.boardDiv.style.borderColor = "rgb(58, 58, 60)";
+            element.boardDiv.style.borderColor = uColours.darkGrey;
         }
         board = boards[e.detail.index];
-        board.boardDiv.style.borderColor = "rgb(255,255,255)";
+        board.boardDiv.style.borderColor = uColours.offWhite;
         boards[0].highlightRow(e.detail.index-1);
     });
 
@@ -31,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener(`cycle`, (e) => {
         cycleBoard()
+    })
+
+    document.addEventListener(`saveGame`, (e) => { //needs to be accessed by keyboard module
+        saveCurrentState(boards);
     })
 
     document.addEventListener('exclusion', (e) => {
@@ -48,9 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 boards[index].excludedLetters.delete(e.detail.letter)
             }
         }
-
-
-
     })
 
 

@@ -12,6 +12,7 @@
     <script type="module" src="modals/statsModal.js"></script>
     <script type="module" src="modals/endGameModal.js"></script>
     <script type="module" src="modals/dictModal.js"></script>
+    <script type="module" src="modals/nextPuzzleModal.js"></script>
     <script type="module" src="js/storage.js"></script>
     <script type="module" src="js/dictionary.js"></script>
     <script type="module" src="js/keyboard.js"></script>
@@ -26,7 +27,7 @@
     <div id="container">
         <div id="game">
             <header>
-                <h1 class="title" id="big-title">REFERDLEv0.59</h1>
+                <h1 class="title" id="big-title">REFERDLEv0.60</h1>
                 <div class="spacer-full"></div>
                 <input type="image" src="images/graph.png" id="stats-button" name="stats" width="50" height="50" alt="stats"/>  
                 <input type="image" src="images/help.png" id="help-button" name="help" width="50" height="50" alt="help"/>  
@@ -107,6 +108,18 @@
                     </div>
                     <div class="modal-body">
                         <p>Coming soon!</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+            <!-- deliberately not a modal class, needs to behave differently -->
+            <div id="nextPuzzleModal">  
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" class="prevent-select">&times;</span>
+                    </div>
+                    <div class="modal-body">
                     </div>
                     <div class="modal-footer">
                     </div>
