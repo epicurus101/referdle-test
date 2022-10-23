@@ -25,9 +25,9 @@ document.addEventListener('reviewMode', (e) => {
 
 function startAgain() {
     modal.style.display = "none";
-    const event = new CustomEvent('startAgain');
-    console.log(`starting again`)
-    document.dispatchEvent(event);
+    console.log(`starting again`);
+    document.dispatchEvent(new CustomEvent('keyboardAppear'));
+    document.dispatchEvent(new CustomEvent('startAgain'));
 }
 
 
