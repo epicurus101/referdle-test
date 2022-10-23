@@ -16,7 +16,6 @@ button.onclick = () => {
 }
 
 modal.onclick = function() {
-    console.log("click detected")
      modal.style.display = "none";
 }
 

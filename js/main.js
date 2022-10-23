@@ -3,6 +3,7 @@ import { getComparison, newPuzzle } from './logic.js';
 import {saveCurrentState, loadCurrentState, deleteSave, saveStats, loadStats} from './storage.js'
 import {loadDictionary} from './dictionary.js';
 import {keyboard} from './keyboard.js';
+import {imageGen} from './imageGen.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -88,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadPuzzle() {
         let next = newPuzzle(dictionary);
-        console.log(next);
         boards[0].setClueGrid(next);
         for (let i = 1; i < boards.length; i++) {
             const element = boards[i];
@@ -180,8 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const event = new CustomEvent('endGame', {detail: {
             win: true,
             guesses: guesses,
+            boards: boards
           }});
-        console.log(`endGame event`)
         document.dispatchEvent(event);
 
         stats.push(guesses)
@@ -194,12 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function handleLoss(){
+        imageGen.endGameImage(boards)
 
         const event = new CustomEvent('endGame', {detail: {
             win: board.targetWord,
             guesses: 0,
           }});
-        console.log(`endGame event`)
         document.dispatchEvent(event);
 
         stats.push("x")

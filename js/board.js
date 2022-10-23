@@ -50,7 +50,6 @@ export class Board {
                 index: this.index,
                 board: this
               }});
-              console.log(`board selected: ${this.index}`)
             document.dispatchEvent(event);
         }
     }
@@ -66,7 +65,6 @@ export class Board {
     }
 
     getSquare(i){
-        console.log('got as far as function');
         if (i < 1 || i > 25) {
             return document.getElementById(`b${this.index}-1`);
         }
@@ -87,10 +85,8 @@ export class Board {
         }
         for (let i = 0; i < this.guessedWordCount; i++) {
             let guess = this.guessedWords[i];
-            console.log("filling in", guess)
             for (let ind = 0; ind < guess.length; ind++) {
                 const element = guess[ind];
-                console.log('about to call getSquare');
                 const availableSpaceEl = document.getElementById(`b${this.index}-${this.availableSpace}`);
              //   const availableSpaceEl = getSquare(this.availableSpace) //WHY DOESN'T THIS WORK
                 availableSpaceEl.textContent = element;
@@ -110,7 +106,6 @@ export class Board {
     }
 
     highlightRow(index){
-        console.log(`highlighting row ${index}`);
         for (let row = 0; row < 5; row++) {
             let opacity = 0.6;
             if (row == index) {

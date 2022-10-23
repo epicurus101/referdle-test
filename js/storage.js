@@ -30,19 +30,15 @@ function saveCurrentState(boards){
         let object = boardToObject(board);
         objectArray.push(object);
     }
-    console.log(`here are the boards being saved`, objectArray)
     let str = JSON.stringify(objectArray);
     localStorage.setItem("saveGame", str);
-    console.log("saving game");
 }
 
 function loadCurrentState(boards){
-    console.log("loading game")
     const save = localStorage.getItem("saveGame");
     if (save == null) { return false };
     let objectArray = JSON.parse(save);
     if (objectArray == null) {return false};
-    console.log("here's object array", objectArray)
     let targetWords = []
     for (let i = 0; i < objectArray.length; i++) {
         let saveData = objectArray[i];

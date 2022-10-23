@@ -29,7 +29,6 @@
         let str = JSON.stringify(dict);
         localStorage.setItem("dictionary", str);
         localStorage.setItem("dictVersion", version)
-        console.log("saving dictionary");
     }
     
     function getDictionaryFromLS(){

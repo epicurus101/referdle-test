@@ -22,7 +22,6 @@ const keyboard = (function () {
             });
     
             keys[i].addEventListener('click', function(e) {
-                console.log("a key was clicked, but do we allow input?" ,allowInput)
                 if (!allowInput || board.success) { return }
                 keyHandler(letter);
             })
@@ -38,7 +37,6 @@ const keyboard = (function () {
 
     function keyHandler(letter) {
 
-        console.log("we're trying to handle keys")
         if (letter === 'enter') {
             const event = new CustomEvent('submit');
             document.dispatchEvent(event);
@@ -49,7 +47,6 @@ const keyboard = (function () {
         } else if (!standardKeys.includes(letter)){
             return;
         } else {
-            console.log("add a ", letter)
             board.updateGuessedWords(letter);
         }
 
@@ -94,7 +91,6 @@ const keyboard = (function () {
         });
 
         for (let row = 0; row < board.guessedWordCount; row++) {
-            console.log(`updating keyboard for row ${row}`)
             const element = board.guessedWords[row];
             if (element.length == 5) {
                 const compare = getComparison(element, board.getTargetWordArr())
@@ -113,7 +109,6 @@ const keyboard = (function () {
     }
 
     function updateKey( key, newValue ) { //keyboard
-        console.log(key.customInfo)
         if (key.customInfo >= newValue) {
             return;
         } else {
