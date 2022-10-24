@@ -1,4 +1,4 @@
-import { getComparison, newPuzzle, uColours } from "./contents.js";
+import { logic, uColours } from "./contents.js";
 
 export class Board {
     
@@ -59,7 +59,7 @@ export class Board {
         let comparisons = []
         for (let i = 0; i < this.guessedWords.length; i++) {
             let guess = this.guessedWords[i];
-            let comparison = getComparison(guess, Array.from(this.targetWord));
+            let comparison = logic.getComparison(guess, Array.from(this.targetWord));
             comparisons.push(comparison);
         }
         return comparisons
@@ -93,7 +93,7 @@ export class Board {
                 availableSpaceEl.textContent = element;
                 this.availableSpace += 1;
             }
-            let comparison = getComparison(guess, Array.from(this.targetWord));
+            let comparison = logic.getComparison(guess, Array.from(this.targetWord));
             this.flipTiles(0,comparison, i);
         }
     }
@@ -145,7 +145,7 @@ export class Board {
             this.guessedWords.push(Array.from(element));
         });
         this.guessedWords.forEach(wordArr => {
-            const compare = getComparison(wordArr, this.guessedWords[4]);
+            const compare = logic.getComparison(wordArr, this.guessedWords[4]);
             comparisons.push(compare);
         })
         let joinedArray = this.guessedWords.flat(1);

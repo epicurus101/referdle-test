@@ -1,23 +1,20 @@
 import { Board } from './board.js';
-import { getComparison, newPuzzle } from './logic.js';
-import {saveCurrentState, loadCurrentState, deleteSave, saveStats, loadStats} from './storage.js'
+import { logic } from './logic.js';
 import {loadDictionary} from './dictionary.js';
 import {keyboard} from './keyboard.js';
 import {imageGen} from './imageGen.js';
 import {uColours} from './colours.js';
+import {storage} from './storage.js';
+import { puzzleDecider } from './puzzleDecider.js';
 
 
 export {
     Board,
-    getComparison,
-    newPuzzle,
-    saveCurrentState,
-    loadCurrentState,
-    deleteSave,
-    saveStats,
-    loadStats,
+    logic,
     loadDictionary,
     keyboard,
     imageGen,
     uColours,
+    storage,
+    puzzleDecider,
 }

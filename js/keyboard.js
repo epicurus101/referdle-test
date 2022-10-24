@@ -1,4 +1,4 @@
-import { getComparison, uColours } from './contents.js';
+import { logic, uColours } from './contents.js';
 
 const keyboard = (function () {
 
@@ -106,7 +106,7 @@ const keyboard = (function () {
         for (let row = 0; row < board.guessedWordCount; row++) {
             const element = board.guessedWords[row];
             if (element.length == 5) {
-                const compare = getComparison(element, board.getTargetWordArr())
+                const compare = logic.getComparison(element, board.getTargetWordArr())
                 updateKeyboardRow(compare, element)
             }
         }

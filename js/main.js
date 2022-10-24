@@ -1,16 +1,12 @@
 import { 
     Board,
-    getComparison,
-    newPuzzle,
-    saveCurrentState,
-    loadCurrentState,
-    deleteSave,
-    saveStats,
-    loadStats,
+    logic,
+    storage,
     loadDictionary,
     keyboard,
     imageGen,
     uColours,
+    puzzleDecider,
     } from './contents.js';
 
 
@@ -18,8 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let boards = [];
     let dictionary = [];
+    let dailyPuzzles = [];
     let board;
     let stats = []
+    let dailyMode = true;
 
     document.addEventListener('boardSelect', (e) => {
 
@@ -43,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.addEventListener(`saveGame`, (e) => { //needs to be accessed by keyboard module
-        saveCurrentState(boards);
+        storage.saveCurrentState(boards);
     })
 
     document.addEventListener('exclusion', (e) => {
@@ -69,10 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {
     async function initialisation() {
 
         indicator();
-        keyboard.initialise()
-        stats = loadStats()
+        keyboard.initialise();
+        stats = storage.loadStats();
         dictionary = await loadDictionary();
+        await puzzleDecider.loadDailies();
         createBoards()
+        populateBoards()
         keyboard.changeInput(true);
         cycleBoard();
 
@@ -86,33 +86,44 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(newB.boardDiv);
             boards.push(newB);
         }
-
         boards.forEach(element => {
             element.adjustText();
         });
-        console.log("checking for save game")
-        if (!loadCurrentState(boards)) {  //Checks AND loads - consider splitting
-            loadPuzzle();
-        } else {
-
-        }
     }
 
-    function loadPuzzle() {
-        let next = newPuzzle(dictionary);
-        boards[0].setClueGrid(next);
+    function populateBoards(){
+        if (puzzleDecider.isDailyInProgress()) {
+            dailyMode = true
+            storage.loadCurrentState(boards, true);
+        } else if (puzzleDecider.isDailyAvailable()) {
+            dailyMode = true
+            let puzzle = puzzleDecider.getDaily()
+            loadPuzzle(puzzle, true)
+        } else if (puzzleDecider.isPracticeInProgress()) {
+            dailyMode = false
+            storage.loadCurrentState(boards, false)
+        } else {
+            dailyMode = false
+            let puzzle = logic.newPuzzle(dictionary);
+            loadPuzzle(puzzle, false)
+        }
+        indicator()
+    }
+
+    function loadPuzzle(puzzle, daily) {
+        boards[0].setClueGrid(puzzle);
         for (let i = 1; i < boards.length; i++) {
             const element = boards[i];
-            element.setTarget(next[i-1])
+            element.setTarget(puzzle[i-1])
         }
-        saveCurrentState(boards);
+        storage.saveCurrentState(boards, daily);
     }
 
     function handleSubmitWord() {
         const currentWordArr = board.getCurrentWordArr();
         const targetWordArr = board.getTargetWordArr();
         const currentWord = currentWordArr.join("");
-        const comparisonResult = getComparison(currentWordArr, targetWordArr);
+        const comparisonResult = logic.getComparison(currentWordArr, targetWordArr);
 
         if (currentWordArr.length !== 5) {
             const event = new CustomEvent('showDictModal', {detail: {
@@ -137,23 +148,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentWord === board.targetWord) {
             board.success = true;
             board.guessedWordCount += 1;
-            saveCurrentState(boards);
+            storage.saveCurrentState(boards);
             setTimeout(keyboardUpdate, interval * 6);
             if (allBoardsComplete()) {
                 keyboard.changeInput(false);
                 setTimeout(handleWin, interval * 8);
-                deleteSave()
+                storage.deleteSave()
             } else {
                 cycleBoard();
             }
         } else if (board.guessedWords.length === 5) {
             keyboard.changeInput(false);
             setTimeout(handleLoss, interval * 6);
-            deleteSave();
+            storage.deleteSave();
         } else {
             setTimeout(keyboardUpdate, interval * 6);
             board.next();
-            saveCurrentState(boards);
+            storage.saveCurrentState(boards);
         }
     }
 
@@ -187,16 +198,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleWin(){
 
         let guesses = totalGuesses()
-
         const event = new CustomEvent('endGame', {detail: {
             win: true,
             guesses: guesses,
             boards: boards
           }});
         document.dispatchEvent(event);
-
         stats.push(guesses)
-        saveStats(stats)
+        storage.saveStats(stats)
     }
 
     document.addEventListener('startAgain', (e) => {
@@ -214,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.dispatchEvent(event);
 
         stats.push("x")
-        saveStats(stats)
+        storage.saveStats(stats)
     }
 
     function resetGame(){
@@ -249,7 +258,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function indicator(){
         let indic = document.getElementById(`indicator`)
-        indic.textContent = `Daily Puzzle #0001`
+        if (dailyMode) {
+            let num = String(puzzleDecider.getDaily()).padStart(5, '0')
+            indic.textContent = `Daily Puzzle #${num}`
+        } else {
+            indic.textContent = `Practice Mode`
+        }
     }
 
     
