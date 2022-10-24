@@ -7,18 +7,10 @@ modal.onclick = function(e) {
     return;
 }
 
-span.onclick = function(e) {
-    e.stopPropagation();
-    startAgain();
-    return;
-}
 
 document.addEventListener('reviewMode', (e) => {
     console.log('review');
-    modal.style.display = "flex";
-    modal.style.flexDirection = "column";
-    const body = modal.querySelector('.modal-body');
-    body.textContent = "Close this box to continue playing in Practice Mode";
+    modal.style.display = "inline";
 
 });
 

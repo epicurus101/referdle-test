@@ -220,16 +220,15 @@
   #nextPuzzleModal {
 
     display: none;
-    justify-content: center;
+    background-color: #fefefe;
+
+    text-align: center;
     width: 100%;
-    margin: 0;
-    height: 200px;
-
+    height: 75px;
+    line-height: 75px;
+    margin: auto;
   }
 
-  #nextPuzzleModal .modal-body {
-    line-height: 40px;
-  }
 
   /* CIRCLE STUFF */
 
