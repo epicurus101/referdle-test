@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function initialisation() {
 
+        indicator();
         keyboard.initialise()
         stats = loadStats()
         dictionary = await loadDictionary();
@@ -244,6 +245,11 @@ document.addEventListener("DOMContentLoaded", () => {
         boards[curr].boardDiv.onclick();
         let sq = ((boards[curr].guessedWords.length-1)*5)+1;
         document.getElementById(`b${curr}-${sq}`).scrollIntoView(false);
+    }
+
+    function indicator(){
+        let indic = document.getElementById(`indicator`)
+        indic.textContent = `Daily Puzzle #0001`
     }
 
     
