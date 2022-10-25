@@ -67,16 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         indicator();
         keyboard.initialise();
-        console.log('keyboard initialised')
         dictionary = await loadDictionary();
-        console.log('dictionary initialised')
         dailyPuzzles = await puzzleDecider.loadDailies();
-        console.log('daily puzzles initialised')
-        console.log(dailyPuzzles)
         createBoards()
-        console.log('boards created')
         populateBoards()
-        console.log('boards populated')
         keyboard.changeInput(true);
         cycleBoard();
 
@@ -95,27 +89,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function populateBoards(){
+    async function populateBoards(){ // this is when to update streaks
         if (puzzleDecider.isDailyInProgress()) {
             console.log("detected a current daily in progress")
             dailyMode = true
-            storage.loadCurrentState(boards, true);
+            storage.loadCurrentState(boards, dailyMode);
         } else if (puzzleDecider.isDailyAvailable()) {
-            console.log("getting daily")
+            console.log("getting fresh daily")
             dailyMode = true
             let puzzle = dailyPuzzles[puzzleDecider.getDay()]
             puzzle.forEach((word,index) => {puzzle[index] = word.toLowerCase()})
-            console.log("here's the daily", puzzle)
-            loadPuzzle(puzzle, true)
+            loadPuzzle(puzzle, dailyMode)
         } else if (puzzleDecider.isPracticeInProgress()) {
             console.log("done daily, found a saved practice")
             dailyMode = false
-            storage.loadCurrentState(boards, false)
+            storage.loadCurrentState(boards, dailyMode)
         } else {
             console.log("all other routes explored, creating a new practice")
             dailyMode = false
             let puzzle = logic.newPuzzle(dictionary);
-            loadPuzzle(puzzle, false)
+            loadPuzzle(puzzle, dailyMode)
         }
         console.log('changing the indicator')
         indicator()

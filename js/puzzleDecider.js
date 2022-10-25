@@ -6,7 +6,6 @@ const firstDay = new Date("23 Oct 2022")
 
 const puzzleDecider = (function(){
 
-    let dailyPuzzles = []
 
     function isDailyInProgress(){
 

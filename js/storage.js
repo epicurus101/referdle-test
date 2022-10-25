@@ -19,6 +19,14 @@ const storage = (function() {
         return (Number(localStorage.getItem("lastDaily")) == num)
     }
 
+    function getDaily() {
+        if (doesStorageKeyExist("lastDaily")) {
+            return Number(localStorage.getItem("lastDaily"))
+        } else {
+            return -1
+        }
+    }
+
     function isPracticeInProgress(){
         return doesStorageKeyExist("saveGame-P")
     }
