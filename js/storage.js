@@ -1,27 +1,27 @@
-
+import { puzzleDecider } from "./contents.js";
 
 const storage = (function() {
 
+    function doesStorageKeyExist(str){
+        let save = localStorage.getItem(str)
+        return (save != null && save != "null")
+    }
+
     function returningPlayer(){
-        if (localStorage.getItem("returningPlayer") != null) {
-            return true;
-        } else {
-            localStorage.setItem("returningPlayer", "true")
-            return false;
-        }
+        return doesStorageKeyExist("returningPlayer")
     }
 
     function dailySave(){
-        return (localStorage.getItem("saveGame-D") != null)
+        return doesStorageKeyExist("saveGame-D")
     }
 
     function dailyIs(num){
         return (Number(localStorage.getItem("lastDaily")) == num)
     }
 
-
-
-
+    function isPracticeInProgress(){
+        return doesStorageKeyExist("saveGame-P")
+    }
 
     function boardToObject(board){
 
@@ -45,6 +45,7 @@ const storage = (function() {
         let str = JSON.stringify(objectArray);
         if (daily) {
             localStorage.setItem("saveGame-D", str);
+            localStorage.setItem("lastDaily", String(puzzleDecider.getDay()))
         } else {
             localStorage.setItem("saveGame-P", str);
         }
@@ -57,7 +58,9 @@ const storage = (function() {
         } else {
             save = localStorage.getItem("saveGame-P");
         }
+        console.log(save)
         let objectArray = JSON.parse(save);
+        console.log(objectArray)
         let targetWords = []
         for (let i = 0; i < objectArray.length; i++) {
             let saveData = objectArray[i];
@@ -123,6 +126,7 @@ const storage = (function() {
         addToStats: addToStats,
         dailySave: dailySave,
         dailyIs: dailyIs,
+        isPracticeInProgress: isPracticeInProgress,
 
     }
 

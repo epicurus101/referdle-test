@@ -29,6 +29,7 @@
         let str = JSON.stringify(dict);
         localStorage.setItem("dictionary", str);
         localStorage.setItem("dictVersion", version)
+
     }
     
     function getDictionaryFromLS(){

@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let dictionary = [];
     let dailyPuzzles = [];
     let board;
-    let stats = []
     let dailyMode = true;
 
     document.addEventListener('boardSelect', (e) => {
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.addEventListener(`saveGame`, (e) => { //needs to be accessed by keyboard module
-        storage.saveCurrentState(boards);
+        storage.saveCurrentState(boards, dailyMode);
     })
 
     document.addEventListener('exclusion', (e) => {
@@ -68,11 +67,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         indicator();
         keyboard.initialise();
-        stats = storage.loadStats();
+        console.log('keyboard initialised')
         dictionary = await loadDictionary();
-        await puzzleDecider.loadDailies();
+        console.log('dictionary initialised')
+        dailyPuzzles = await puzzleDecider.loadDailies();
+        console.log('daily puzzles initialised')
+        console.log(dailyPuzzles)
         createBoards()
+        console.log('boards created')
         populateBoards()
+        console.log('boards populated')
         keyboard.changeInput(true);
         cycleBoard();
 
@@ -91,22 +95,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function populateBoards(){
+    async function populateBoards(){
         if (puzzleDecider.isDailyInProgress()) {
+            console.log("detected a current daily in progress")
             dailyMode = true
             storage.loadCurrentState(boards, true);
         } else if (puzzleDecider.isDailyAvailable()) {
+            console.log("getting daily")
             dailyMode = true
-            let puzzle = puzzleDecider.getDaily()
+            let puzzle = dailyPuzzles[puzzleDecider.getDay()]
+            puzzle.forEach((word,index) => {puzzle[index] = word.toLowerCase()})
+            console.log("here's the daily", puzzle)
             loadPuzzle(puzzle, true)
         } else if (puzzleDecider.isPracticeInProgress()) {
+            console.log("done daily, found a saved practice")
             dailyMode = false
             storage.loadCurrentState(boards, false)
         } else {
+            console.log("all other routes explored, creating a new practice")
             dailyMode = false
             let puzzle = logic.newPuzzle(dictionary);
             loadPuzzle(puzzle, false)
         }
+        console.log('changing the indicator')
         indicator()
     }
 
@@ -116,7 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const element = boards[i];
             element.setTarget(puzzle[i-1])
         }
+        console.log(boards)
         storage.saveCurrentState(boards, daily);
+        console.log(`we saved a ${daily ? "daily" : "practice"} puzzle`)
     }
 
     function handleSubmitWord() {
@@ -148,23 +161,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentWord === board.targetWord) {
             board.success = true;
             board.guessedWordCount += 1;
-            storage.saveCurrentState(boards);
+            storage.saveCurrentState(boards, dailyMode);
             setTimeout(keyboardUpdate, interval * 6);
             if (allBoardsComplete()) {
                 keyboard.changeInput(false);
                 setTimeout(handleWin, interval * 8);
-                storage.deleteSave()
+                storage.deleteSave(dailyMode)
             } else {
                 cycleBoard();
             }
         } else if (board.guessedWords.length === 5) {
             keyboard.changeInput(false);
             setTimeout(handleLoss, interval * 6);
-            storage.deleteSave();
+            storage.deleteSave(dailyMode);
         } else {
             setTimeout(keyboardUpdate, interval * 6);
             board.next();
-            storage.saveCurrentState(boards);
+            storage.saveCurrentState(boards, dailyMode);
         }
     }
 
@@ -204,13 +217,12 @@ document.addEventListener("DOMContentLoaded", () => {
             boards: boards
           }});
         document.dispatchEvent(event);
-        stats.push(guesses)
-        storage.saveStats(stats)
+        storage.addToStats(guesses, dailyMode)
     }
 
     document.addEventListener('startAgain', (e) => {
         resetGame()
-        loadPuzzle()
+        populateBoards()
     });
 
     function handleLoss(){
@@ -222,8 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }});
         document.dispatchEvent(event);
 
-        stats.push("x")
-        storage.saveStats(stats)
+          storage.addToStats("X", dailyMode)
     }
 
     function resetGame(){
@@ -259,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function indicator(){
         let indic = document.getElementById(`indicator`)
         if (dailyMode) {
-            let num = String(puzzleDecider.getDaily()).padStart(5, '0')
+            let num = String(puzzleDecider.getDay()).padStart(5, '0')
             indic.textContent = `Daily Puzzle #${num}`
         } else {
             indic.textContent = `Practice Mode`

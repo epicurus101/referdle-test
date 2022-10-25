@@ -2,9 +2,11 @@ import { logic, storage, } from './contents.js';
 
 const firstDay = new Date("23 Oct 2022")
 
-let dailyPuzzles
+
 
 const puzzleDecider = (function(){
+
+    let dailyPuzzles = []
 
     function isDailyInProgress(){
 
@@ -17,6 +19,10 @@ const puzzleDecider = (function(){
             return false
         }
         return false
+    }
+
+    function isPracticeInProgress(){
+        return storage.isPracticeInProgress();
     }
 
     function getDay(){
@@ -34,26 +40,19 @@ const puzzleDecider = (function(){
     }
 
     async function loadDailies(){
+        console.log("about to launch fetch")
         const response = await fetch('https://epicurus101.github.io/referdle-test/1000.json');
         let array = await response.json();
-        array.forEach((word, index) => {
-            array[index] = word.toLowerCase();
-        })
-        dailyPuzzles = array;
+        return array;
     }
 
-    function getDaily(){
-        let day = getDay();
-        return dailyPuzzles[day]
-    }
 
     return {
         isDailyInProgress: isDailyInProgress,
         isDailyAvailable: isDailyAvailable,
         loadDailies: loadDailies,
-        getDaily: getDaily,
-        getDay: getDay
-
+        getDay: getDay,
+        isPracticeInProgress: isPracticeInProgress
     }
 
 
