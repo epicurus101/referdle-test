@@ -7,6 +7,11 @@ const storage = (function() {
         return (save != null && save != "null")
     }
 
+    function get(stat, daily) {
+        let key = stat + ( daily? "-D" : "-P" )
+        return (doesStorageKeyExist(key) ? localStorage.getItem(key) : "")
+    }
+
     function returningPlayer(){
         return doesStorageKeyExist("returningPlayer")
     }
@@ -25,6 +30,31 @@ const storage = (function() {
         } else {
             return -1
         }
+    }
+
+    function updateDaily(day){
+        localStorage.setItem("lastDaily", day)
+    }
+
+    function incrementStreak(daily){
+        let cKey = daily ? "currentStreak-D" : "currentStreak-P"
+        let pKey = daily ? "potentialStreak-D" : "potentialStreak-P"
+        let num = doesStorageKeyExist(cKey) ? Number(localStorage.getItem(cKey)) : 0
+        localStorage.setItem(cKey, String(num))
+        localStorage.setItem(pKey, String(num+1))
+    }
+
+    function resetStreak(daily){
+        let cKey = daily ? "currentStreak-D" : "currentStreak-P"
+        localStorage.setItem(cKey, "0")
+    }
+
+    function resolveStreak(daily){
+        let cKey = daily ? "currentStreak-D" : "currentStreak-P"
+        let pKey = daily ? "potentialStreak-D" : "potentialStreak-P"
+        let num = doesStorageKeyExist(pKey) ? Number(localStorage.getItem(pKey)) : 1
+        localStorage.setItem(cKey, String(num))
+        console.log(`${daily ? "Daily" : "Practice"} streak is ${num}`)
     }
 
     function isPracticeInProgress(){
@@ -53,7 +83,6 @@ const storage = (function() {
         let str = JSON.stringify(objectArray);
         if (daily) {
             localStorage.setItem("saveGame-D", str);
-            localStorage.setItem("lastDaily", String(puzzleDecider.getDay()))
         } else {
             localStorage.setItem("saveGame-P", str);
         }
@@ -135,7 +164,13 @@ const storage = (function() {
         dailySave: dailySave,
         dailyIs: dailyIs,
         isPracticeInProgress: isPracticeInProgress,
-
+        doesStorageKeyExist: doesStorageKeyExist,
+        getDaily: getDaily,
+        incrementStreak: incrementStreak,
+        resetStreak: resetStreak,
+        updateDaily: updateDaily,
+        resolveStreak: resolveStreak,
+        get: get,
     }
 
 })();

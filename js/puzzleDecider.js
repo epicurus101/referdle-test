@@ -6,6 +6,22 @@ const firstDay = new Date("23 Oct 2022")
 
 const puzzleDecider = (function(){
 
+    function startStreakProcess(daily) {
+        if (daily) {
+            if ((getDay()-storage.getDaily()) == 1) {
+                storage.incrementStreak(daily)
+            } else {
+                storage.resetStreak(daily)
+                storage.incrementStreak(daily)
+            }
+            storage.updateDaily(getDay())
+        } else {
+            storage.incrementStreak(daily)
+        }
+    }
+
+
+
 
     function isDailyInProgress(){
 
@@ -15,6 +31,7 @@ const puzzleDecider = (function(){
         } else if (storage.dailySave()) {
             storage.addToStats("X", true) // you failed, and the day is past, sorry
             storage.deleteSave(true)
+            storage.resetStreak(true)
             return false
         }
         return false
@@ -51,7 +68,9 @@ const puzzleDecider = (function(){
         isDailyAvailable: isDailyAvailable,
         loadDailies: loadDailies,
         getDay: getDay,
-        isPracticeInProgress: isPracticeInProgress
+        isPracticeInProgress: isPracticeInProgress,
+        startStreakProcess: startStreakProcess,
+
     }
 
 

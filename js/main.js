@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function populateBoards(){ // this is when to update streaks
+    function populateBoards(){ // this is when to update streaks
         if (puzzleDecider.isDailyInProgress()) {
             console.log("detected a current daily in progress")
             dailyMode = true
@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let puzzle = dailyPuzzles[puzzleDecider.getDay()]
             puzzle.forEach((word,index) => {puzzle[index] = word.toLowerCase()})
             loadPuzzle(puzzle, dailyMode)
+            puzzleDecider.startStreakProcess(dailyMode)
         } else if (puzzleDecider.isPracticeInProgress()) {
             console.log("done daily, found a saved practice")
             dailyMode = false
@@ -109,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dailyMode = false
             let puzzle = logic.newPuzzle(dictionary);
             loadPuzzle(puzzle, dailyMode)
+            puzzleDecider.startStreakProcess(dailyMode)
         }
         console.log('changing the indicator')
         indicator()
@@ -202,15 +204,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleWin(){
-
         let guesses = totalGuesses()
+        storage.resolveStreak(dailyMode)
+        storage.addToStats(guesses, dailyMode)
+        let streak = storage.get("currentStreak", dailyMode)
         const event = new CustomEvent('endGame', {detail: {
             win: true,
             guesses: guesses,
-            boards: boards
+            boards: boards,
+            streak: streak,
+            daily: dailyMode
           }});
         document.dispatchEvent(event);
-        storage.addToStats(guesses, dailyMode)
     }
 
     document.addEventListener('startAgain', (e) => {
@@ -219,15 +224,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function handleLoss(){
-        imageGen.endGameImage(boards)
+
+        storage.addToStats("X", dailyMode)
+        storage.resetStreak(dailyMode)
+        let streak = storage.get("currentStreak", dailyMode)
 
         const event = new CustomEvent('endGame', {detail: {
             win: board.targetWord,
+            boards: boards,
             guesses: 0,
+            streak: streak,
+            daily: dailyMode
           }});
         document.dispatchEvent(event);
 
-          storage.addToStats("X", dailyMode)
     }
 
     function resetGame(){

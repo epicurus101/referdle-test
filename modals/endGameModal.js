@@ -18,7 +18,7 @@ span.onclick = function(e) {
 
 document.addEventListener('endGame', (e) => {
 
-    updateText(e.detail.win, e.detail.guesses);
+    updateText(e.detail.win, e.detail.guesses, e.detail.streak, e.detail.daily);
     modal.style.display = "flex";
     modal.style.flexDirection = "column";
 
@@ -40,13 +40,15 @@ function closeModal() {
 }
 
 
-function updateText(win, guesses) {
+function updateText(win, guesses, streak, daily) {
     const body = modal.querySelector('.modal-body');
 
     if (win == true) {
-        body.textContent = `\r\nVictory!\r\nYou completed today's Referdle in ${guesses}/25 guesses.\r\n\r\n Well done!`
+        let mode = daily ? "the Daily Referdle" : "a Practice Referdle"
+        let mode2 = daily ? "Daily Mode" : "Practice Mode"
+        body.textContent = `\r\nVictory!\r\nYou completed ${mode} in ${guesses}/25 guesses.\r\n\r\nWell done!\r\nCurrent ${mode2} Streak: ${streak}`
     } else {
-        body.textContent = `\r\nYou ran out of guesses for the word ${win}\r\nNever mind, try again tomorrow.\r\n\r\nOr you can keep on playing in Practice Mode`
+        body.textContent = `\r\nYou ran out of guesses for the word ${win.toUpperCase()}\r\nNever mind, try again tomorrow.\r\n\r\nOr you can keep on playing in Practice Mode`
     }
 
 

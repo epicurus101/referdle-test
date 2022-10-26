@@ -69,7 +69,7 @@ const imageGen = (function () {
 
         let text = document.createElement("div")
         text.setAttribute("id", "endPatternText")
-        text.textContent = guesses
+        text.textContent = (guesses > 0 ? guesses : "X")
         holder.appendChild(text)
 
         return holder;
