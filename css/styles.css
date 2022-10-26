@@ -230,8 +230,10 @@
   #nextPuzzleModal {
 
     display: none;
+    z-index: 5;
     background-color: #fefefe;
-
+    border-radius: 10px;
+    font-size: 20px;
     text-align: center;
     width: 100%;
     height: 75px;

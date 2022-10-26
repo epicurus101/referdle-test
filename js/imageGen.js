@@ -9,9 +9,11 @@ const imageGen = (function () {
         for (let r = 1; r < boards.length; r++) {
             const board = boards[r];
             let comparisons = board.getAllBoardComparisons()
+            console.log(comparisons)
 
-            for (let index = board.guessedWordCount+1; index < 6; index++) {
+            for (let index = comparisons.length; index < 5; index++) {
                 comparisons.splice(0,0,["0","0","0","0","0"])
+                console.log(`splicing for board ${r} which has guess count ${board.guessedWordCount}`)
             }
             trinaryArr.push(comparisons)
         }
