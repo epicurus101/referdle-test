@@ -6,6 +6,7 @@ import {imageGen} from './imageGen.js';
 import {uColours} from './colours.js';
 import {storage} from './storage.js';
 import { puzzleDecider } from './puzzleDecider.js';
+import { boardManager } from './boardManager.js';
 
 
 export {
@@ -17,4 +18,5 @@ export {
     uColours,
     storage,
     puzzleDecider,
+    boardManager
 }

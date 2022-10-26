@@ -4,9 +4,9 @@ import {
     storage,
     loadDictionary,
     keyboard,
-    imageGen,
     uColours,
     puzzleDecider,
+    boardManager
     } from './contents.js';
 
 
@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(keyboardUpdate, interval * 6);
             if (allBoardsComplete()) {
                 keyboard.changeInput(false);
+                boardManager.clearAllHighlighting(boards)
                 setTimeout(handleWin, interval * 8);
                 storage.deleteSave(dailyMode)
             } else {
@@ -167,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } else if (board.guessedWords.length === 5) {
             keyboard.changeInput(false);
+            boardManager.clearAllHighlighting(boards);
             setTimeout(handleLoss, interval * 6);
             storage.deleteSave(dailyMode);
         } else {
@@ -221,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('startAgain', (e) => {
         resetGame()
         populateBoards()
+        boards[1].boardDiv.onclick();
     });
 
     function handleLoss(){
@@ -245,7 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
         boards.forEach(element => {
             element.resetBoard()
         });
-        boards[1].boardDiv.onclick();
         document.getElementById(`b1-1`).scrollIntoView(false);
         keyboard.changeInput(true);
     }

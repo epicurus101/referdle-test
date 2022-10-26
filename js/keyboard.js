@@ -93,6 +93,7 @@ const keyboard = (function () {
         for (let i = 0; i < keys.length; i++) {
             keys[i].customInfo = -2;
             keys[i].style.backgroundColor = uColours.midGrey;
+            keys[i].style.borderColor = uColours.midGrey;
         }
     }
 
@@ -128,12 +129,16 @@ const keyboard = (function () {
             key.customInfo = newValue;  
             if (newValue == -1) {
                 key.style.backgroundColor = uColours.darkBlue;
+                key.style.borderColor = uColours.darkBlue;
             } else if (newValue == 0) {
                 key.style.backgroundColor = uColours.darkGrey;
+                key.style.borderColor = uColours.darkGrey
             } else if (newValue == 1) {
                 key.style.backgroundColor = uColours.yellow;
+                key.style.borderColor = uColours.yellow;
             } else if (newValue == 2) {
                 key.style.backgroundColor = uColours.green;
+                key.style.borderColor = uColours.green;
             }
         }
     }

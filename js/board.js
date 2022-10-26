@@ -106,6 +106,17 @@ export class Board {
         });
     }
 
+    fullOpacity(){
+        for (let row = 0; row < 5; row++) {
+            for (let space = 0; space < 5; space++) {
+                let num = (row * 5) + space + 1
+                const element = document.getElementById(`b${this.index}-${num}`);
+                element.style.opacity = 1.0;
+                element.style.border = `0px solid`
+            }    
+        }
+    }
+
     highlightRow(index){
         for (let row = 0; row < 5; row++) {
             for (let space = 0; space < 5; space++) {
