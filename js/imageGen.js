@@ -12,11 +12,11 @@ const imageGen = (function () {
             let comparisons = board.getAllBoardComparisons()
             console.log(comparisons)
 
-            for (let index = comparisons.length; index < 5; index++) {
-                comparisons.splice(0,0,["0","0","0","0","0"])
+            // for (let index = comparisons.length; index < 5; index++) {
+            //     comparisons.splice(0,0,["0","0","0","0","0"])
 
-                console.log(`splicing for board ${r} which has guess count ${board.guessedWordCount}`)
-            }
+            //     console.log(`splicing for board ${r} which has guess count ${board.guessedWordCount}`)
+            // }
             trinaryArr.push(comparisons.reverse())
         }
 
@@ -32,12 +32,14 @@ const imageGen = (function () {
         let blockArc = ((Math.PI * 2) - (20 * miniGap + 5 * maxiGap))/25
 
         let innerRadius = 50
-        let blockHeight = 15
+        let maxBlockHeight = 90
         let blockGap = 3
         
 
         for (let iB = 0; iB < trinaryArr.length; iB++) {
             const board = trinaryArr[iB];
+            const rows = board.length;
+            const blockHeight = (maxBlockHeight - (blockGap * (rows-1)))/rows
 
             for (let iR = 0; iR < board.length; iR++) {
 
