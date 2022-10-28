@@ -1,4 +1,4 @@
-import { logic, uColours } from './contents.js';
+import { logic, uColours, animateCSS } from './contents.js';
 
 const keyboard = (function () {
 
@@ -23,8 +23,14 @@ const keyboard = (function () {
     
             keys[i].addEventListener('click', function(e) {
                 if (!allowInput || board.success) { return }
+                console.log(e.button)
                 keyHandler(letter);
             })
+
+            keys[i].addEventListener('contextmenu', function (e) {
+                e.preventDefault()
+                longpressHandler(letter)
+            } )
         }
     }
 
@@ -69,9 +75,12 @@ const keyboard = (function () {
             return;
         } else if (board.excludedLetters.has(letter)) {
             board.excludedLetters.delete(letter);
+            animateCSS(`#k-${letter}`, "headShake")
             intelligentExclusion(false, letter);
         } else {
             board.excludedLetters.add(letter);
+            const key = document.getElementById(`k-${letter}`)
+            animateCSS(`#k-${letter}`, "headShake")
             intelligentExclusion(true, letter);
         }
         reset();
@@ -148,6 +157,7 @@ const keyboard = (function () {
     }
 
     let keyTimers = {};
+    let responded = new Set();
 
     document.addEventListener('keydown', function(event) {
         let str = event.key.toLowerCase();
@@ -156,6 +166,12 @@ const keyboard = (function () {
         } 
         if (keyTimers[str] == null) {
             keyTimers[str] = Date.now();
+        } else if (keyTimers[str] != null && !responded.has(str)) {
+            const interval = Date.now()-keyTimers[str];
+            if (interval > 800) {
+                longpressHandler(str);
+                responded.add(str)
+            } 
         } else {
             return;
         }
@@ -165,24 +181,19 @@ const keyboard = (function () {
         let str = event.key.toLowerCase();
         if (str == "backspace") {
             keyHandler("del");
-            return
         } else if (str == "enter") {
             keyHandler("enter");
-            return
         } else if (str == "tab") {
             const event = new CustomEvent('cycle');
             document.dispatchEvent(event);
-            return;
-        }
-        if (keyTimers[str]) {
+        } else if (keyTimers[str]) {
             const interval = Date.now()-keyTimers[str];
             delete keyTimers[str];
-            if (interval > 800) {
-                longpressHandler(str);
-            } else {
+            if (interval < 800) {
                 keyHandler(str);
             }
         }
+        responded.delete(str)
 
     } )
 

@@ -1,4 +1,4 @@
-import { logic, uColours } from "./contents.js";
+import { logic, uColours, animateCSS } from "./contents.js";
 
 export class Board {
     

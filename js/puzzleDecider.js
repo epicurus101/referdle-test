@@ -55,18 +55,10 @@ const puzzleDecider = (function(){
         return (!storage.dailySave() && !storage.dailyIs(day))
     }
 
-    async function loadDailies(){
-        console.log("about to launch fetch")
-        const response = await fetch('https://epicurus101.github.io/referdle-test/1000.json');
-        let array = await response.json();
-        return array;
-    }
-
 
     return {
         isDailyInProgress: isDailyInProgress,
         isDailyAvailable: isDailyAvailable,
-        loadDailies: loadDailies,
         getDay: getDay,
         isPracticeInProgress: isPracticeInProgress,
         startStreakProcess: startStreakProcess,

@@ -7,6 +7,8 @@ import {uColours} from './colours.js';
 import {storage} from './storage.js';
 import { puzzleDecider } from './puzzleDecider.js';
 import { boardManager } from './boardManager.js';
+import { animateCSS } from './helpers.js';
+import { loadPuzzles } from './dailyPuzzles.js';
 
 
 export {
@@ -18,5 +20,7 @@ export {
     uColours,
     storage,
     puzzleDecider,
-    boardManager
+    boardManager,
+    animateCSS,
+    loadPuzzles
 }

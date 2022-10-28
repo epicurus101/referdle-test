@@ -6,7 +6,8 @@ import {
     keyboard,
     uColours,
     puzzleDecider,
-    boardManager
+    boardManager,
+    loadPuzzles
     } from './contents.js';
 
 
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         indicator();
         keyboard.initialise();
         dictionary = await loadDictionary();
-        dailyPuzzles = await puzzleDecider.loadDailies();
+        dailyPuzzles = await loadPuzzles();
         createBoards()
         populateBoards()
         keyboard.changeInput(true);
