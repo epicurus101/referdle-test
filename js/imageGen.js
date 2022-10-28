@@ -2,6 +2,7 @@ import { uColours } from './contents.js';
 
 const imageGen = (function () {
 
+   
     function endGameImage(boards, guesses) {
 
         let trinaryArr = []
@@ -13,69 +14,83 @@ const imageGen = (function () {
 
             for (let index = comparisons.length; index < 5; index++) {
                 comparisons.splice(0,0,["0","0","0","0","0"])
+
                 console.log(`splicing for board ${r} which has guess count ${board.guessedWordCount}`)
             }
-            trinaryArr.push(comparisons)
+            trinaryArr.push(comparisons.reverse())
         }
 
-        let holder = document.createElement("div")
+        let holder = document.createElement("CANVAS")
         holder.setAttribute("id", "endPatternHolder")
+        holder.width = 300;
+        holder.height = 300;
 
-        let angle = 0
+        let ctx = holder.getContext("2d");
 
-        let miniGap = Math.PI * 2/27
-        let maxiGap = Math.PI * 14/135
+        let miniGap = Math.PI * 1/180
+        let maxiGap = Math.PI * 4/180
+        let blockArc = ((Math.PI * 2) - (20 * miniGap + 5 * maxiGap))/25
+
+        let innerRadius = 50
+        let blockHeight = 15
+        let blockGap = 3
         
 
         for (let iB = 0; iB < trinaryArr.length; iB++) {
             const board = trinaryArr[iB];
-            let radius = 131
-            let vWidth = 26
-
-            let savedBoardAngle = angle
 
             for (let iR = 0; iR < board.length; iR++) {
 
-                angle = savedBoardAngle // restart 
-                console.log(angle)
                 const row = board[iR];
                 for (let iL = 0; iL < row.length; iL++) {
                     const letter = row[iL];
 
-                    let block = document.createElement('div');
-                    block.className = 'circle';
-                    block.style.width = vWidth + 'px'
-                    block.style.top = (150-5)+'px'
-                    block.style.left = (150-vWidth/2) + 'px'
-                    block.style.transform = ` rotate(${angle}rad) translate(0px, ${radius}px)`
-                    holder.appendChild(block)
-
-                    let result = trinaryArr[iB][iR][iL]
-                    let tileColor = uColours.darkGrey;
-                    if (result == 1) {
-                        tileColor = uColours.yellow;
-                    } else if (result == 2) {
-                        tileColor = uColours.green;
+                    ctx.fillStyle = uColours.darkGrey;
+                    if (letter == 1) {
+                        ctx.fillStyle = uColours.yellow;
+                    } else if (letter == 2) {
+                        ctx.fillStyle = uColours.green;
                     }
-                    block.style.backgroundColor = tileColor;
-                    block.style.borderColor = tileColor;
+                    
+                    const startAngle = (iB/5 * Math.PI * 2) + (miniGap + blockArc) * iL
+                    const endAngle = startAngle + blockArc
+                    const startRadius = innerRadius + (blockHeight + blockGap) * iR
+                    const endRadius = startRadius + blockHeight
 
-                    angle += miniGap
+                    const ax = 150 + startRadius * Math.cos(startAngle)
+                    const ay = 150 + startRadius * Math.sin(startAngle)
+
+                    const bx = 150 + endRadius * Math.cos(startAngle)
+                    const by = 150 + endRadius * Math.sin(startAngle)
+
+                    const dx = 150 + startRadius * Math.cos(endAngle)
+                    const dy = 150 + startRadius * Math.sin(endAngle)
+
+                    ctx.beginPath()
+
+                    ctx.moveTo(ax,ay)
+                    ctx.lineTo(bx,by)
+                    ctx.arc(150,150,endRadius,startAngle,endAngle,false)
+                    ctx.lineTo(dx,dy)
+                    ctx.arc(150,150,startRadius,endAngle,startAngle,true)
+                    ctx.closePath()
+                    ctx.fill()
+
                 }
-                radius -= 14
-                vWidth /= 1.16
+
             }
-            angle -= miniGap // reverse out last addition
-            angle += maxiGap // extra gap
         }
 
-        let text = document.createElement("div")
-        text.setAttribute("id", "endPatternText")
-        text.textContent = (guesses > 0 ? guesses : "X")
-        holder.appendChild(text)
+        ctx.font = 'bold 50px customWebFont';
+        ctx.fillStyle = uColours.offWhite;
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText((guesses > 0 ? guesses : "X"), holder.width/2, holder.height/2); 
+
 
         return holder;
     }
+
 
 
 
