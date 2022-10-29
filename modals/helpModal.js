@@ -1,11 +1,10 @@
 const modal = document.getElementById("helpModal");
 
-const button = document.getElementById("help-button");
-button.onclick = () => {
-    console.log(`help button clicked`);
-    
-    modal.style.display = "block";
-}
+document.addEventListener('showHelpModal', () => {
+
+modal.style.display = "block"
+
+})
 
 modal.onclick = function() {
     modal.style.display = "none";

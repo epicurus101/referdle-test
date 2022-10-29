@@ -33,10 +33,10 @@ function showMenu() {
     menuModal.style.left = (widthScale + menuModal.parentElement.offsetLeft - menuModal.offsetWidth) + `px`
 
     const data = [
-        ["How to Play", "help"],
-        ["Statistics", "graph"],
-        ["Abandon Game", "abandon"],
-        ["About", "info"]
+        ["How to Play", "help", "showHelpModal"],
+        ["Statistics", "graph", "showStatsModal"],
+        ["Abandon Game", "abandon", "abandon"],
+        ["About", "info", "showInfoModal"]
     ]
 
     for (let index = 0; index < data.length; index++) {
@@ -46,6 +46,9 @@ function showMenu() {
         element.classList.add("menuItem")
         element.style.flexDirection = "row"
         menuModal.appendChild(element)
+        element.onclick = () => {
+            document.dispatchEvent( new CustomEvent(inf[2]))
+        }
 
         const text = document.createElement("div")
         text.classList.add("menuText")
