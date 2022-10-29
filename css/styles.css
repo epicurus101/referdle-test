@@ -5,13 +5,13 @@
 
   @font-face {
     font-family: customWebFont;
-    src: url(https://epicurus101.github.io/referdle-test/fonts/PublicSans-Black.woff2);
+    src: url(../fonts/PublicSans-Black.woff2);
     font-weight:bold;
   }
 
   @font-face {
     font-family: customWebFont;
-    src: url(https://epicurus101.github.io/referdle-test/fonts/PublicSans-Medium.woff2);
+    src: url(../fonts/PublicSans-Medium.woff2);
     font-weight:normal;
   }
   
@@ -129,7 +129,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 0 auto 4px;
+    margin: 0px auto 4px;
     touch-action: manipulation;
   }
   
@@ -137,7 +137,7 @@
     font-family: inherit;
     font-weight: bold;
     font-size: 15px;
-    padding: 0;
+    padding: 0px;
     border: 1px solid rgba(129,131,132);
     height: 58px;
     cursor: pointer;
@@ -229,6 +229,47 @@
     text-align: center;
     font-family: customWebFont;
     font-size: 1rem;
+  }
+
+  #menuModal {
+    position: absolute;
+    z-index: 10;
+    background-color: rgb(58, 58, 60);
+    width: 50%;
+    flex-direction: column;
+    text-align: center;
+    font-family: customWebFont;
+    font-size: 1rem;
+  }
+
+  .menuItem {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    color: #fefefe;
+    background-color: rgb(58, 58, 60);
+    justify-content: space-between;
+    font-family: customWebFont;
+    font-size: 1rem;
+  }
+
+  .menuItem:hover,
+  .menuItem:focus {
+    background-color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .menuText {
+    display: block;
+    text-align: right;
+    padding: 1px 10px;
+    font-weight: bold;
+  }
+
+  .menuLogo {
+    display: block;
+
   }
 
   #nextPuzzleModal {

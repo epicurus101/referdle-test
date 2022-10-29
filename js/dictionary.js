@@ -15,7 +15,7 @@
     }
 
     async function downloadDictionary(){
-        const response = await fetch('https://epicurus101.github.io/referdle-test/dictionary.json');
+        const response = await fetch('dictionary.json');
         let array = await response.json();
         array.forEach((word, index) => {
             array[index] = word.toLowerCase();

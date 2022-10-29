@@ -14,7 +14,7 @@ const version = "1.00"
  }
 
  async function downloadPuzzles(){
-     const response = await fetch('https://epicurus101.github.io/referdle-test/1000.json');
+     const response = await fetch('1000.json');
      let array = await response.json();
      savePuzzles(array);
      console.log("puzzles loaded from web and saved");
