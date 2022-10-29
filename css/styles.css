@@ -231,6 +231,19 @@
     font-size: 1rem;
   }
 
+  #menu-button:link {
+    filter: brightness(100%);
+  }
+
+  #menu-button:hover
+   {
+    filter: brightness(60%);
+  }
+
+  #menu-button:active {
+    background-color: rgb(58, 58, 60);
+  }
+
   #menuModal {
     position: absolute;
     z-index: 10;
@@ -250,7 +263,6 @@
     background-color: rgb(58, 58, 60);
     justify-content: space-between;
     font-family: customWebFont;
-    font-size: 1rem;
   }
 
   .menuItem:hover,
@@ -264,7 +276,6 @@
     display: block;
     text-align: right;
     padding: 1px 10px;
-    font-weight: bold;
   }
 
   .menuLogo {

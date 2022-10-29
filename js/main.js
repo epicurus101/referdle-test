@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         populateBoards()
         keyboard.changeInput(true);
         cycleBoard();
-        document.dispatchEvent(new CustomEvent(`showMenuModal`))
+
 
     }
 

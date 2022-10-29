@@ -1,14 +1,31 @@
 const menuModal = document.getElementById("menuModal");
 menuModal.style.display = "none"
 
-document.addEventListener('showMenuModal', (e) => {
+const button = document.getElementById("menu-button")
 
-    console.log("showMenuModal")
+let menuActive = false
+
+button.onclick = () => {
+    menuActive = !menuActive;
+    if (menuActive) {
+        showMenu();
+    } else {
+        hideMenu();
+    }
+
+}
+
+window.onclick = (e) => {
+    if (menuActive && e.target != menuModal && e.target != button) {
+        hideMenu();
+        menuActive = false;
+    }
+}
+
+function showMenu() {
+
     menuModal.style.display = "block";
-    console.log(menuModal.parentElement.offsetWidth)
-    console.log(menuModal.offsetWidth)
-    console.log(menuModal.parentElement.getBoundingClientRect())
-    
+
     const widthScale = menuModal.parentElement.offsetWidth;
 
     menuModal.style.width = (widthScale * 0.4) + 'px'
@@ -33,6 +50,7 @@ document.addEventListener('showMenuModal', (e) => {
         const text = document.createElement("div")
         text.classList.add("menuText")
         text.style.lineHeight = widthScale/10 + 'px';
+        text.style.fontSize = widthScale/30 + 'px';
         element.appendChild(text)
         text.textContent = inf[0]
 
@@ -46,10 +64,14 @@ document.addEventListener('showMenuModal', (e) => {
 
     }
 
-    //menuModal.style.left = '600px'
-    // menuModal.style.top = '100px'
+};
 
-});
+function hideMenu() {
+    while (menuModal.hasChildNodes()) {
+        menuModal.removeChild(menuModal.lastChild)
+      }
+      menuModal.style.display = "none"
+}
 
 // function setPosition(board){
 //     const container = document.getElementById('board-container')
