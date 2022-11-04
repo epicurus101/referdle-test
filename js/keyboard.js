@@ -23,7 +23,7 @@ const keyboard = (function () {
     
             keys[i].addEventListener('click', function(e) {
                 if (!allowInput || board.success) { return }
-                console.log(e.button)
+                // console.log(e.button)
                 keyHandler(letter);
             })
 
@@ -35,13 +35,13 @@ const keyboard = (function () {
     }
 
     document.addEventListener('keyboardDisappear', (e) => {
-        console.log('keyboard disappear called')
+        // console.log('keyboard disappear called')
         let kc = document.getElementById("keyboard-container")
         kc.style.display = "none";
     })
 
     document.addEventListener('keyboardAppear', (e) => {
-        console.log('keyboard appear called')
+        // console.log('keyboard appear called')
         let kc = document.getElementById("keyboard-container")
         kc.style.display = "block";
     })

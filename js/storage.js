@@ -54,7 +54,7 @@ const storage = (function() {
         let pKey = daily ? "potentialStreak-D" : "potentialStreak-P"
         let num = doesStorageKeyExist(pKey) ? Number(localStorage.getItem(pKey)) : 1
         localStorage.setItem(cKey, String(num))
-        console.log(`${daily ? "Daily" : "Practice"} streak is ${num}`)
+        // console.log(`${daily ? "Daily" : "Practice"} streak is ${num}`)
     }
 
     function isPracticeInProgress(){
@@ -95,9 +95,9 @@ const storage = (function() {
         } else {
             save = localStorage.getItem("saveGame-P");
         }
-        console.log(save)
+        // console.log(save)
         let objectArray = JSON.parse(save);
-        console.log(objectArray)
+        // console.log(objectArray)
         let targetWords = []
         for (let i = 0; i < objectArray.length; i++) {
             let saveData = objectArray[i];
@@ -130,6 +130,7 @@ const storage = (function() {
     function addToStats(item, daily){
         let stats = loadStats(daily);
         stats.push(item);
+        console.log(stats);
         saveStats(stats, daily);
     }
 

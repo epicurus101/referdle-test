@@ -3,14 +3,14 @@ import { uColours } from './contents.js';
 const imageGen = (function () {
 
    
-    function endGameImage(boards, guesses) {
+    function endGameImage(boards, guesses, width, topText) {
 
         let trinaryArr = []
 
         for (let r = 1; r < boards.length; r++) {
             const board = boards[r];
             let comparisons = board.getAllBoardComparisons()
-            console.log(comparisons)
+            // console.log(comparisons)
 
             // for (let index = comparisons.length; index < 5; index++) {
             //     comparisons.splice(0,0,["0","0","0","0","0"])
@@ -22,8 +22,9 @@ const imageGen = (function () {
 
         let holder = document.createElement("CANVAS")
         holder.setAttribute("id", "endPatternHolder")
-        holder.width = 300;
-        holder.height = 300;
+        holder.width = width;
+        holder.height = width * 7/6;
+        let shorter = Math.min(holder.width/2, holder.height/2)
 
         let ctx = holder.getContext("2d");
 
@@ -31,9 +32,9 @@ const imageGen = (function () {
         let maxiGap = Math.PI * 4/180
         let blockArc = ((Math.PI * 2) - (20 * miniGap + 5 * maxiGap))/25
 
-        let innerRadius = 50
-        let maxBlockHeight = 90
-        let blockGap = 3
+        let innerRadius = shorter * 0.3
+        let maxBlockHeight = shorter * 0.65
+        let blockGap = shorter * 0.02
         
 
         for (let iB = 0; iB < trinaryArr.length; iB++) {
@@ -59,22 +60,22 @@ const imageGen = (function () {
                     const startRadius = innerRadius + (blockHeight + blockGap) * iR
                     const endRadius = startRadius + blockHeight
 
-                    const ax = 150 + startRadius * Math.cos(startAngle)
-                    const ay = 150 + startRadius * Math.sin(startAngle)
+                    const ax = holder.width/2 + startRadius * Math.cos(startAngle)
+                    const ay = holder.height/2 + startRadius * Math.sin(startAngle)
 
-                    const bx = 150 + endRadius * Math.cos(startAngle)
-                    const by = 150 + endRadius * Math.sin(startAngle)
+                    const bx = holder.width/2 + endRadius * Math.cos(startAngle)
+                    const by = holder.height/2 + endRadius * Math.sin(startAngle)
 
-                    const dx = 150 + startRadius * Math.cos(endAngle)
-                    const dy = 150 + startRadius * Math.sin(endAngle)
+                    const dx = holder.width/2 + startRadius * Math.cos(endAngle)
+                    const dy = holder.height/2 + startRadius * Math.sin(endAngle)
 
                     ctx.beginPath()
 
                     ctx.moveTo(ax,ay)
                     ctx.lineTo(bx,by)
-                    ctx.arc(150,150,endRadius,startAngle,endAngle,false)
+                    ctx.arc(holder.width/2,holder.height/2,endRadius,startAngle,endAngle,false)
                     ctx.lineTo(dx,dy)
-                    ctx.arc(150,150,startRadius,endAngle,startAngle,true)
+                    ctx.arc(holder.width/2,holder.height/2,startRadius,endAngle,startAngle,true)
                     ctx.closePath()
                     ctx.fill()
 
@@ -83,13 +84,25 @@ const imageGen = (function () {
             }
         }
 
-        ctx.font = 'bold 50px customWebFont';
+        ctx.font = `bold ${shorter*0.3}px customWebFont`;
         ctx.fillStyle = uColours.offWhite;
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText((guesses > 0 ? guesses : "X"), holder.width/2, holder.height/2); 
 
+        ctx.font = `normal ${shorter*0.1}px customWebFont`;
+        ctx.fillStyle = uColours.offWhite;
+        ctx.textAlign = 'left'
+        ctx.textBaseline = 'top'
+        ctx.fillText(topText, shorter * 0.05, shorter * 0.05); 
 
+        ctx.font = `normal ${shorter*0.1}px customWebFont`;
+        ctx.fillStyle = uColours.offWhite;
+        ctx.textAlign = 'left'
+        ctx.textBaseline = 'bottom'
+        ctx.fillText('http://www.referdle.com', shorter * 0.05, holder.height-shorter*0.05); 
+
+        console.log(holder)
         return holder;
     }
 

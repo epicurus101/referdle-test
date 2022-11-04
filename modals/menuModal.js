@@ -34,9 +34,10 @@ function showMenu() {
 
     const data = [
         ["How to Play", "help", "showHelpModal"],
+        ["Tips & Tricks", "tips", "showTips"],
         ["Statistics", "graph", "showStatsModal"],
         ["Abandon Game", "abandon", "abandon"],
-        ["About", "info", "showInfoModal"]
+        ["About", "info", "showAboutModal"]
     ]
 
     for (let index = 0; index < data.length; index++) {

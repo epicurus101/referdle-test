@@ -87,6 +87,12 @@
     position: relative
   }
 
+  .grid-axis {
+    color:rgb(58, 58, 60);
+    font-family: customWebFont;
+    text-align: center;
+  }
+
   .board-title {
 
     color: gainsboro;
@@ -182,7 +188,7 @@
     width: 100%;
     max-width: 500px;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
   }
@@ -194,6 +200,8 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-height: 80%;
+    overflow-y: scroll;
   } 
 
 
@@ -300,11 +308,9 @@
 
   /* CIRCLE STUFF */
 
-
-
   #endPatternHolder {
-    height: 300px;
-    width: 300px;
+    /* height: 300px;
+    width: 300px; */
     z-index: 4;
     position: relative;
     margin: 20px auto;
@@ -313,24 +319,34 @@
     background-color: black;
   }
 
-  #endPatternText {
-    position: relative;
-    margin: auto;
-   /* justify-content: center; */
-    text-align: center;
-    font-family: customWebFont;
-    line-height: 300px;
-    font-size: 50px;
-    font-weight: bold;
-    color: gainsboro;
+  /* Stats Page Stuff */
+
+  #stat-mode-button-holder {
+    display: flex;
+    border: 1px solid black;
+    flex-direction: row;
+    margin: auto 25%;
+    justify-content: baseline;
   }
 
+.stat-mode-button {
+  color: black;
+  position: relative;
+  background-color: rgb(129, 131, 132);
+  padding: 10px;
+  font-size: 1.5rem;
+  width: 50%;
+  text-align: center;
+  font-family: customWebFont;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 
-  .circle {
-    z-index: 1;
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    border: 1px solid red;
-    border-radius: 0%;
-  }
+}
+
+.stat-mode-button:hover,
+.stat-mode-button:focus {
+  filter:brightness(150%);
+  cursor: pointer;
+}
+

@@ -8,10 +8,10 @@ const puzzleDecider = (function(){
 
     function startStreakProcess(daily) {
         if (daily) {
-            if ((getDay()-storage.getDaily()) == 1) {
+            if ((getDay()-storage.getDaily()) == 1) { 
                 storage.incrementStreak(daily)
             } else {
-                storage.resetStreak(daily)
+                storage.resetStreak(daily) // is this nec? done elsewhere?
                 storage.incrementStreak(daily)
             }
             storage.updateDaily(getDay())
@@ -45,13 +45,15 @@ const puzzleDecider = (function(){
         const today = new Date().getTime();
         const diff = today - firstDay;
         const daysDiff = Math.floor(diff/(24*60*60*1000));
-        console.log("what day is it?", daysDiff);
+        // console.log("what day is it?", daysDiff);
         return daysDiff;
 
     }
 
     function isDailyAvailable(){ // have I completed the daily yet?
         let day = getDay();
+        console.log('is there a daily save?', storage.dailySave())
+        console.log('does current day, ', day, ',match the latest daily, ', localStorage.getItem("lastDaily"))
         return (!storage.dailySave() && !storage.dailyIs(day))
     }
 

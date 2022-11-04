@@ -5,6 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referdle</title>
+    <script>window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+      
+        return t;
+      }(document, "script", "twitter-wjs"));</script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/board.js"></script>
     <script type="module" src="js/helpers.js"></script>
@@ -13,6 +29,7 @@
     <script type="module" src="modals/endGameModal.js"></script>
     <script type="module" src="modals/dictModal.js"></script>
     <script type="module" src="modals/menuModal.js"></script>
+    <script type="module" src="modals/aboutModal.js"></script>
     <script type="module" src="modals/nextPuzzleModal.js"></script>
     <script type="module" src="js/storage.js"></script>
     <script type="module" src="js/dictionary.js"></script>
@@ -23,6 +40,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+
 </head>
 <body>
     <div id="container">
@@ -30,7 +48,7 @@
             <header>
                 <input type="image" src="images/logo.png" name="logo" width="64" height="40" alt="logo"/>
                 <!-- <div class="spacer-quarter"></div> -->
-                <h1 class="title" id="big-title">v0.79</h1>
+                <h1 class="title" id="big-title">v0.80</h1>
                 <div id="indicator"></div>
                 <div class="spacer-half"></div>
                 <input type="image" src="images/menu.png" id="menu-button" name="menu" width="50" height="50" alt="menu"/>  
@@ -83,46 +101,37 @@
             
             <div id="helpModal" class = "modal">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close" class="prevent-select">&times;</span>
-                        <h2>How to Play</h2>
-                    </div>
-                    <div class="modal-body">
-                        <p>Some text in the Modal Body</p>
-                        <p>Some other text...</p>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+                    <span class="close" class="prevent-select">&times;</span>
+                    <h2>How to Play</h2>
                 </div>
             </div>
+            <div id="aboutModal" class = "modal">
+                <div class="modal-content">
+                    <span class="close" class="prevent-select">&times;</span>
+                    <h2>About / Credits</h2>
+                </div>
+            </div>
+
             <div id="endGameModal" class = "modal">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close" class="prevent-select">&times;</span>
-                        <h2>Game Over</h2>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+                    <span class="close" class="prevent-select">&times;</span>
+                    <h2>Game Over</h2>
                 </div>
             </div>
 
             <div id="statsModal" class = "modal">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close" class="prevent-select">&times;</span>
-                        <h2>Your Statistics<h2>
+                    <span class="close" class="prevent-select">&times;</span>
+                    <h2>Your Statistics<h2>
+                    <br>
+                    <div id="stat-mode-button-holder">
+                        <div class="stat-slider"></div>
+                        <div class="stat-mode-button">Practice</div>
+                        <div class="stat-mode-button">Daily</div>
                     </div>
-                    <div class="modal-body">
-                        <p>Coming soon!</p>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+                    <br>
                 </div>
             </div>
-
-
         </div>
     </div>
 </body>

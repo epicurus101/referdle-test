@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createBoards() {
-        console.log("creating boards")
+        // console.log("creating boards")
         const container = document.getElementById("board-container");
         for (let i = 0; i < 6; i++) {
             const newB = new Board(i);
@@ -93,28 +93,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function populateBoards(){ // this is when to update streaks
         if (puzzleDecider.isDailyInProgress()) {
-            console.log("detected a current daily in progress")
+            // console.log("detected a current daily in progress")
             dailyMode = true
             storage.loadCurrentState(boards, dailyMode);
         } else if (puzzleDecider.isDailyAvailable()) {
-            console.log("getting fresh daily")
+            // console.log("getting fresh daily")
             dailyMode = true
             let puzzle = dailyPuzzles[puzzleDecider.getDay()]
             puzzle.forEach((word,index) => {puzzle[index] = word.toLowerCase()})
             loadPuzzle(puzzle, dailyMode)
             puzzleDecider.startStreakProcess(dailyMode)
         } else if (puzzleDecider.isPracticeInProgress()) {
-            console.log("done daily, found a saved practice")
+            // console.log("done daily, found a saved practice")
             dailyMode = false
             storage.loadCurrentState(boards, dailyMode)
         } else {
-            console.log("all other routes explored, creating a new practice")
+            // console.log("all other routes explored, creating a new practice")
             dailyMode = false
             let puzzle = logic.newPuzzle(dictionary);
             loadPuzzle(puzzle, dailyMode)
             puzzleDecider.startStreakProcess(dailyMode)
         }
-        console.log('changing the indicator')
+        // console.log('changing the indicator')
         indicator()
     }
 
@@ -124,9 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const element = boards[i];
             element.setTarget(puzzle[i-1])
         }
-        console.log(boards)
+        // console.log(boards)
         storage.saveCurrentState(boards, daily);
-        console.log(`we saved a ${daily ? "daily" : "practice"} puzzle`)
+        // console.log(`we saved a ${daily ? "daily" : "practice"} puzzle`)
     }
 
     function handleSubmitWord() {
@@ -212,12 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
         storage.resolveStreak(dailyMode)
         storage.addToStats(guesses, dailyMode)
         let streak = storage.get("currentStreak", dailyMode)
+
         const event = new CustomEvent('endGame', {detail: {
             win: true,
             guesses: guesses,
             boards: boards,
             streak: streak,
-            daily: dailyMode
+            daily: dailyMode,
+            topText: getTopText(),
           }});
         document.dispatchEvent(event);
     }
@@ -233,16 +235,27 @@ document.addEventListener("DOMContentLoaded", () => {
         storage.addToStats("X", dailyMode)
         storage.resetStreak(dailyMode)
         let streak = storage.get("currentStreak", dailyMode)
-
         const event = new CustomEvent('endGame', {detail: {
             win: board.targetWord,
             boards: boards,
             guesses: 0,
             streak: streak,
-            daily: dailyMode
+            daily: dailyMode,
+            topText: getTopText(),
           }});
         document.dispatchEvent(event);
 
+    }
+
+    function getTopText(){
+        let topText
+        if (dailyMode) {
+            let num = String(puzzleDecider.getDay()).padStart(5, '0')
+            topText = `Daily Puzzle #${num}`
+        } else {
+            topText = `Practice Mode`
+        }
+        return topText
     }
 
     function resetGame(){
@@ -276,12 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function indicator(){
         let indic = document.getElementById(`indicator`)
-        if (dailyMode) {
-            let num = String(puzzleDecider.getDay()).padStart(5, '0')
-            indic.textContent = `Daily Puzzle #${num}`
-        } else {
-            indic.textContent = `Practice Mode`
-        }
+        indic.textContent = getTopText()
     }
 
     

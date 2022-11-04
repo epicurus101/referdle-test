@@ -78,7 +78,6 @@ export class Board {
         this.guessedWords = object.guessedWords;
         this.excludedLetters = new Set(object.excludedLetters);
         this.guessedWordCount = object.guessedWordCount;
-        console.log(this.guessedWords, this.guessedWordCount)
         if ((this.guessedWordCount > 0) && (this.guessedWords[this.guessedWordCount-1].join("") == this.targetWord)) {
             this.success = true
         } else {
