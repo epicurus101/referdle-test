@@ -28,15 +28,42 @@ buttons.forEach(element => {
     }
 }); 
 
+document.addEventListener('switchStats', (e) => {
+    statsDaily = (e.detail.to == 'Daily') 
+
+    let graph = modal.querySelector("#statsGraph")
+    if (graph) {
+        content.removeChild(graph)
+    }
+    addGraph()
+
+})
+
+function addGraph(){
+
+    let recordedString = storage.get('stats', statsDaily)
+    let stats;
+    if (recordedString == "") {
+        stats = []
+    } else {
+        stats = JSON.parse(recordedString)
+    }
+
+    let processed = processStats(stats)
+
+    let graph = getGraph(processed)
+    content.appendChild(graph)
+
+}
+
 
 
 document.addEventListener('showStatsModal', () => {
 
     modal.style.display = "block"
     console.log(content)
-    const graph = getGraph()
-    content.appendChild(graph)
     buttons[0].onclick()
+
 })
 
 
@@ -51,7 +78,12 @@ span.onclick = function() {
 
 }
 
-function getGraph(){
+function getGraph(stats){
+
+    let largest = Math.max(...Object.values(stats))
+    let scale = getScale(largest)
+
+    console.log(stats)
 
     const graph = document.createElement("div");
     graph.setAttribute("id", "statsGraph")
@@ -72,12 +104,18 @@ function getGraph(){
             axis.style.height = side + 'px'
             axis.style.width = (side / 24 ) + 'px'
             graph.append(axis)
-            let scale = getScale(100)
-            let axisScale = getAxisScale(scale, 100)
+
+            let axisScale = getAxisScale(scale, largest)
             axis.appendChild(axisScale)
         } else {
             let bar = document.createElement("div");
-            bar.style.height = Math.random() * 100 + 'px'
+            if (stats[index+4]) {
+                bar.style.height = side * stats[index+4] / largest + 'px'
+            } else {
+                bar.style.height = 0+'px'
+            }
+
+
             bar.style.width = ((side / 24) -1 ) + 'px'
             bar.style.backgroundColor = "rgb(150,150,30)"
             graph.append(bar)
@@ -125,6 +163,8 @@ function getAxisScale(scale, maxValue) {
 
     let rowHeight = (scale / maxValue) * side
 
+    let labelNo = Math.floor(maxValue / scale)
+
     let holder = document.createElement("div")
     holder.style.height = side +'px';
     holder.style.width = side/24 + 'px';
@@ -133,13 +173,16 @@ function getAxisScale(scale, maxValue) {
     holder.style.alignContent = "flex-end"
     holder.style.justifyContent = "flex-start"
 
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < labelNo; index++) {
         let bar = document.createElement("div");
         bar.style.display = "inline-block"
         bar.classList.add("axisBox")
         bar.style.height = rowHeight + 'px';
-        bar.style.borderBottom = '1px solid rgb(0,0,0)'
-        bar.textContent = "1,000"
+        bar.style.borderTop = '1px solid rgb(0,0,0)'
+        if (index == 0) {
+            bar.style.borderBottom = '1px solid rgb(0,0,0)'
+        }
+        bar.textContent = (index + 1) * scale
         bar.style.direction = 'rtl'
         bar.style.overflow = "visible"
         bar.style.fontSize = side/30 + 'px'
@@ -149,6 +192,27 @@ function getAxisScale(scale, maxValue) {
 
     return holder;
 
+}
 
+function processStats(stats) {
+
+    console.log(stats)
+    let obj = {}
+
+    Array.from(stats).forEach( function(element) {
+        console.log(element);
+
+        if (element == "X" && '27' in obj) {
+            obj[27] = obj[27] + 1
+        } else if (element == "X") {
+            obj[27] = 1
+        } else if (element in obj) {
+            obj[element] = obj[element] + 1
+        } else {
+            obj[element] = 1
+        }
+    });
+
+    return obj;
 
 }
