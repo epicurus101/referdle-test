@@ -32,19 +32,19 @@ content.appendChild(br1)
 const cluebot = new Image();
 cluebot.src = "images/cluebot.png"
 
-cluebot.style.width = (content.offsetWidth * 0.4) + 'px'
-cluebot.style.height =  (content.offsetWidth * 0.4) + 'px'
-cluebot.style.marginRight = '0px'
-cluebot.style.paddingRight = '0px'
+cluebot.style.width = (content.offsetWidth * 0.3) + 'px'
+cluebot.style.height =  (content.offsetWidth * 0.3) + 'px'
+// cluebot.style.marginRight = '0px'
+// cluebot.style.padding = '0px'
 
 content.appendChild(cluebot)
 
 
 const text1 = document.createElement("div");
 text1.classList.add("modal-body");
-text1.style.width = (content.offsetWidth * 0.5) + 'px'
-text1.style.marginLeft = '0px'
-text1.style.paddingLeft = '0px'
+text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth + 'px'
+// text1.style.marginLeft = '0px'
+// text1.style.padding = '0px'
 content.appendChild(text1)
 text1.textContent = `Cluebot loves to do a popular word puzzle. And when he's completed a puzzle he sends it to you!`
 +`\r\n\r\n`
@@ -55,7 +55,10 @@ let br2 = document.createElement("div")
 br2.classList.add("break")
 content.appendChild(br2)
 
-
+const text2 = document.createElement("div");
+text2.classList.add("modal-body");
+text2.textContent = "blah boopedy baya bap bap blah boopedy here is some text I wonder how it looks when there's line upon line of this stuff going on for ages. I'm not sure where all the sentences are ending and whether the line justification works. You really need quite a lot of text for that to become apparent so here is lots of text. Is it enough? Probably but let's do a bit more to be sure."
+content.appendChild(text2)
 
 
 
