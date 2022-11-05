@@ -24,6 +24,7 @@ const content = modal.querySelector('.modal-content')
 content.style.display = "flex"
 content.style.flexDirection = "row"
 content.style.flexWrap = "wrap"
+content.style.alignItems = "center"
 
 let br1 = document.createElement("div")
 br1.classList.add("break")
