@@ -34,6 +34,7 @@ cluebot.src = "images/cluebot.png"
 
 cluebot.style.width = (content.offsetWidth * 0.4) + 'px'
 cluebot.style.height =  (content.offsetWidth * 0.4) + 'px'
+cluebot.style.marginRight = '0px'
 
 content.appendChild(cluebot)
 
@@ -41,6 +42,7 @@ content.appendChild(cluebot)
 const text1 = document.createElement("div");
 text1.classList.add("modal-body");
 text1.style.width = (content.offsetWidth * 0.5) + 'px'
+text1.style.marginLeft = '0px'
 content.appendChild(text1)
 text1.textContent = `Cluebot loves to do a popular word puzzle. And when he's completed a puzzle he sends it to you!`
 +`\r\n\r\n`
