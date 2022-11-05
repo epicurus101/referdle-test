@@ -42,7 +42,7 @@ content.appendChild(cluebot)
 
 const text1 = document.createElement("div");
 text1.classList.add("modal-body");
-text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth + 'px'
+text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth -2 + 'px'
 // text1.style.marginLeft = '0px'
 // text1.style.padding = '0px'
 content.appendChild(text1)
