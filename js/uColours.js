@@ -6,8 +6,9 @@ const uColours = {
      darkBlue : "rgb(50, 50, 70)",
      black : "rgb(0,0,0)",
      midGrey : "rgb(129, 131, 132)",
+     orange: "rgb(255,165,0)",
      green : "rgb(83, 141, 78)",
-     highlightGreen: "rgb(133, 191, 128)",
+     highlight: "rgb(133, 191, 128)",
      yellow : "rgb(181, 159, 59)",
      transparent: "rgba(0,0,0,0)",
 

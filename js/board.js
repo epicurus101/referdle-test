@@ -30,10 +30,10 @@ export class Board {
         this.boardDiv.appendChild(this.contDiv);
 
         if (index == 0) {
-            this.boardDiv.style.borderColor = uColours.highlightGreen;
+            this.boardDiv.style.borderColor = uColours.highlight;
             this.title.textContent = "CLUE GRID"
-            this.title.style.color = uColours.highlightGreen;
-            this.contDiv.style.borderTop = `1px solid ${uColours.highlightGreen}`
+            this.title.style.color = uColours.highlight;
+            this.contDiv.style.borderTop = `1px solid ${uColours.highlight}`
         }
 
         for (let i = 0; i < 25; i++) {

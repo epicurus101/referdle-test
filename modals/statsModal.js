@@ -3,14 +3,15 @@ import {storage, uColours} from '../js/contents.js';
 const modal = document.getElementById("statsModal");
 const content = modal.querySelector(".modal-content")
 modal.style.display = "block"
-let side = content.offsetWidth * 0.8
+let sideW = content.offsetWidth * 0.8
+let sideH = sideW * 0.5;
 modal.style.display = "none"
 let statsDaily = false;
 
 
 let buttons = modal.querySelectorAll(".stat-mode-button")
 buttons.forEach(element => {
-    element.style.fontSize = (side / 20) + 'px'
+    element.style.fontSize = (sideW / 20) + 'px'
     element.onclick = () => {
         buttons.forEach(e => {
             e.style.color = uColours.offWhite
@@ -35,11 +36,10 @@ document.addEventListener('switchStats', (e) => {
     if (graph) {
         content.removeChild(graph)
     }
-    addGraph()
-
-})
-
-function addGraph(){
+    let text = modal.querySelector("#textStatsHolder")
+    if (text) {
+        content.removeChild(text)
+    }
 
     let recordedString = storage.get('stats', statsDaily)
     let stats;
@@ -48,8 +48,15 @@ function addGraph(){
     } else {
         stats = JSON.parse(recordedString)
     }
+    addText(stats)
+    addGraph(stats)
 
-    let processed = processStats(stats)
+
+})
+
+function addGraph(stats){
+
+    let processed = processStatsForGraph(stats)
 
     let graph = getGraph(processed)
     content.appendChild(graph)
@@ -58,6 +65,37 @@ function addGraph(){
 
 
 
+function addText(stats){
+    let processed = processStatsForText(stats)
+    let labels = ['Win %','Current Streak', 'Max Streak', 'Played', 'Average Guesses']
+
+    const text = document.createElement("div");
+    content.appendChild(text)
+    text.setAttribute("id", "textStatsHolder")
+    text.style.width = sideW + 'px'
+    text.style.height = sideH * 0.6 + 'px'
+    labels.forEach(statLabel => {
+        let box = document.createElement("div");
+        box.classList.add("textStatsBox");
+        text.appendChild(box)
+        let stat = document.createElement("div")
+        stat.classList.add("textStat")
+        stat.textContent = processed[statLabel]
+        stat.style.fontSize = sideH / 6 + 'px'
+        box.appendChild(stat)
+        let label = document.createElement("div")
+        label.classList.add('textStatLabel')
+        label.textContent = statLabel
+        label.style.fontSize = sideH / 15 + 'px'
+        box.appendChild(label)
+        // stat.style.lineHeight = stat.offsetHeight + 'px'
+        // label.style.lineHeight = label.offsetHeight + 'px'
+        // console.log(stat.offsetHeight, label.offsetHeight)
+    });
+
+
+}
+
 document.addEventListener('showStatsModal', () => {
 
     modal.style.display = "block"
@@ -65,8 +103,6 @@ document.addEventListener('showStatsModal', () => {
     buttons[0].onclick()
 
 })
-
-
 
 const span = modal.querySelector('.close');
 
@@ -90,9 +126,9 @@ function getGraph(stats){
 
     graph.style.display = "grid"
     graph.style.gridTemplateColumns = "repeat(24,1fr)"
-    graph.style.gridTemplateRows = `${side}px ${side/15}px`
+    graph.style.gridTemplateRows = `${sideH}px ${sideW/15}px`
  //   graph.style.border = `1px solid ${uColours.midGrey}`
-    graph.style.width = side + 'px';
+    graph.style.width = sideW + 'px';
     graph.style.alignItems = 'end'
     graph.style.margin = '0px auto'
     console.log(graph)
@@ -101,8 +137,8 @@ function getGraph(stats){
         if (index == 0) {
             let axis = document.createElement("div")
             axis.style.borderRight = "1px solid rgb(58,58,60)"
-            axis.style.height = side + 'px'
-            axis.style.width = (side / 24 ) + 'px'
+            axis.style.height = sideH + 'px'
+            axis.style.width = (sideW / 24 ) + 'px'
             graph.append(axis)
 
             let axisScale = getAxisScale(scale, largest)
@@ -110,13 +146,12 @@ function getGraph(stats){
         } else {
             let bar = document.createElement("div");
             if (stats[index+4]) {
-                bar.style.height = side * stats[index+4] / largest + 'px'
+                bar.style.height = sideH * stats[index+4] / largest + 'px'
             } else {
                 bar.style.height = 0+'px'
             }
 
-
-            bar.style.width = ((side / 24) -1 ) + 'px'
+            bar.style.width = ((sideW / 24) -1 ) + 'px'
             bar.style.backgroundColor = "rgb(150,150,30)"
             graph.append(bar)
         }
@@ -125,8 +160,8 @@ function getGraph(stats){
     for (let index = 0; index < 24; index++) {
         let txt = document.createElement("div");
         txt.classList.add("grid-axis")
-        txt.style.fontSize = side/30 + 'px'
-        txt.style.height = side/15 + 'px'
+        txt.style.fontSize = sideW/30 + 'px'
+        txt.style.height = sideW/15 + 'px'
         let num = index+4
 
         if (num >= 5) {
@@ -161,13 +196,13 @@ function getScale(maxValue) {
 
 function getAxisScale(scale, maxValue) {
 
-    let rowHeight = (scale / maxValue) * side
+    let rowHeight = (scale / maxValue) * sideH
 
     let labelNo = Math.floor(maxValue / scale)
 
     let holder = document.createElement("div")
-    holder.style.height = side +'px';
-    holder.style.width = side/24 + 'px';
+    holder.style.height = sideH +'px';
+    holder.style.width = sideW/24 + 'px';
     holder.style.display = "flex"
     holder.style.flexDirection = "column-reverse"
     holder.style.alignContent = "flex-end"
@@ -185,7 +220,7 @@ function getAxisScale(scale, maxValue) {
         bar.textContent = (index + 1) * scale
         bar.style.direction = 'rtl'
         bar.style.overflow = "visible"
-        bar.style.fontSize = side/30 + 'px'
+        bar.style.fontSize = sideW/30 + 'px'
         holder.append(bar)
         
     }
@@ -194,7 +229,7 @@ function getAxisScale(scale, maxValue) {
 
 }
 
-function processStats(stats) {
+function processStatsForGraph(stats) {
 
     console.log(stats)
     let obj = {}
@@ -214,5 +249,36 @@ function processStats(stats) {
     });
 
     return obj;
+
+}
+
+function processStatsForText(stats) {
+
+    let played = stats.length;
+
+    let streak = 0
+    let maxStreak = 0
+    let wins = 0
+    let totalGuesses = 0
+    stats.forEach(element => {
+        if (element == "X") {
+            streak = 0
+        } else {
+            totalGuesses += element;
+            streak += 1;
+            wins += 1;
+            maxStreak = Math.max(streak, maxStreak);
+        }
+    });
+
+
+    let processed = {};
+    processed['Win %'] = (Math.round(wins * 1000 / played) / 10)
+    processed['Current Streak'] = streak
+    processed['Max Streak'] = maxStreak
+    processed['Played'] = played
+    processed['Average Guesses'] = Math.round(totalGuesses * 10/wins) / 10
+
+    return processed
 
 }

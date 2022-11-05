@@ -32,7 +32,6 @@ document.addEventListener('endGame', (e) => {
     button.dataSize = 'large'
     button.textContent = 'Tweet'
     content.appendChild(button)
-``
     document.dispatchEvent(new CustomEvent(`keyboardDisappear`));
 });
 

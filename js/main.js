@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let board;
     let dailyMode = true;
 
+    let a = [0,1,2,3]
+    let b = [0,1,2]
+    let c = [0,1,2,3]
+    console.log(a,b,c)
+    console.log(a.matches(b))
+    console.log(a.matches(c))
+
     document.addEventListener('boardSelect', (e) => {
 
         const num = e.detail.index;
@@ -66,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function initialisation() {
 
+        colorConform();
         indicator();
         keyboard.initialise();
         dictionary = await loadDictionary();
@@ -74,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         populateBoards()
         keyboard.changeInput(true);
         cycleBoard();
+        document.dispatchEvent(new CustomEvent('showNewPlayerModal'));
 
 
     }
@@ -119,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function loadPuzzle(puzzle, daily) {
+        console.log(puzzle)
         boards[0].setClueGrid(puzzle);
         for (let i = 1; i < boards.length; i++) {
             const element = boards[i];
@@ -290,6 +300,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function indicator(){
         let indic = document.getElementById(`indicator`)
         indic.textContent = getTopText()
+        indic.style.lineHeight = indic.offsetHeight + 'px';
+        indic.style.width = "normal";
+        indic.style.width = indic.offsetWidth * 1.05 + 'px';
+    }
+
+    function colorConform(){
+        var r = document.querySelector(':root');
+
+        Object.keys(uColours).forEach( key => {
+            r.style.setProperty('--'+key, uColours[key]);
+        }
+
+        )
     }
 
     

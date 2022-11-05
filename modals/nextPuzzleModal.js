@@ -1,4 +1,5 @@
 const modal = document.getElementById("nextPuzzleModal");
+modal.style.zIndex = 5;
 modal.classList.add("animate__animated");
 
 let active = false

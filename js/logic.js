@@ -79,10 +79,15 @@ const logic = (function(){
                     }
                 } else {
                     const nextWord = pool.randomItem();
-                    words.push(nextWord);
-                    currentMatch = getComparison(nextWord, endWord);
-                    prevWord = nextWord;
-                    break;
+                    let newComparison = getComparison(nextWord, endWord);
+                    if (newComparison.matches(currentMatch)) { // make sure progress
+                        break
+                    } else {
+                        words.push(nextWord);
+                        currentMatch = newComparison;
+                        prevWord = nextWord;
+                        break;
+                    }
                 }
             }
             words.push(endWord);
