@@ -243,6 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener('quitGame', ()=> {
+        console.log("detected quit game")
         handleLoss();
     })
 
@@ -313,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // }
 
         indic.style.width = "normal";
-        indic.style.width = indic.offsetWidth * 1.05 + 'px';
+        indic.style.width = indic.offsetWidth * 1.10 + 'px';
     }
 
     function colorConform(){

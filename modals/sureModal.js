@@ -1,4 +1,4 @@
-import { uColours} from '../js/contents.js';
+import { uColours, storage } from '../js/contents.js';
 
 const modal = document.getElementById("sureModal");
 
@@ -27,6 +27,7 @@ buttons.forEach(element => {
             modal.style.display = "none"
         } else if (element.textContent == "Quit") {
             modal.style.display = "none"
+            storage.deleteSave(true);
             document.dispatchEvent(new CustomEvent('quitGame'));
         }
     }

@@ -45,7 +45,7 @@ text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth -2 + 'px'
 // text1.style.marginLeft = '0px'
 // text1.style.padding = '0px'
 content.appendChild(text1)
-text1.textContent = `Cluebot loves to do a popular word puzzle, and send the empty grid to you. You have to deduce what each of Cluebot's five guesses were by using the Clue Grid.`
+text1.textContent = `Cluebot loves to play Wordle. He's sent you the grid he's solved today with all the letters removed.`
 +`\r\n\r\n`
 
 let br2 = document.createElement("div")
@@ -54,7 +54,7 @@ content.appendChild(br2)
 
 const text2 = document.createElement("div");
 text2.classList.add("modal-body");
-text2.textContent = `Each of Words 1 to 5 matches with one of the words in Cluebot's Clue Grid. By using the extra information in the Clue Grid, you can guess all five words using the fewest guesses.\r\n\r\n`
+text2.textContent = `Your task is to work out each word that Cluebot guessed. Read the 'How to Play' section in the menu for more!.\r\n\r\n`
 content.appendChild(text2)
 
 const img = new Image();
@@ -62,17 +62,9 @@ img.src = "images/grid_connect.png"
 console.log(img)
 img.style.width = (content.offsetWidth * 0.8) + 'px'
 img.style.margin = "auto"
-//img.style.height =  (content.offsetWidth * 0.8 * 495/1281) + 'px'
 content.appendChild(img)
 
-const text3 = document.createElement("div");
-text3.classList.add("modal-body");
-text3.textContent = `There's a Daily Puzzle and then you can play as many games as you like in Practice Mode.\r\n\r\nCheck out 'How to Play' in the menu for more information.  For even more help, there's a 'Tips & Tricks' to explore the logic of Referdle.`
-content.appendChild(text3)
-
 modal.style.display = "none"
-
-
 
 // +`The font is Public Sans (https://public-sans.digital.gov)`
 // +`\r\n\r\n`
@@ -88,7 +80,7 @@ modal.style.display = "none"
 // img.style.width = (content.offsetWidth * 0.8) + 'px'
 // img.style.height =  (content.offsetWidth * 0.8 * 495/1281) + 'px'
 // content.appendChild(img)
-// modal.style.display = "none"
+
 
 // const text2 = document.createElement("div");
 // text2.classList.add("modal-body");
