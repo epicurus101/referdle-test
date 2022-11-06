@@ -54,7 +54,7 @@ content.appendChild(br2)
 
 const text2 = document.createElement("div");
 text2.classList.add("modal-body");
-text2.textContent = `Your task is to work out each word that Cluebot guessed. Read the 'How to Play' section in the menu for more!.\r\n\r\n`
+text2.textContent = `Your task is to work out each word that Cluebot guessed. Read the 'How to Play' section in the menu for more!\r\n\r\n`
 content.appendChild(text2)
 
 const img = new Image();

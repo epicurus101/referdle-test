@@ -24,7 +24,7 @@ content.appendChild(text1)
 text1.textContent = `\r\n`
 +`Cluebot loves to do Wordle puzzles and then send you their answer grid (with all the letters blanked out) to see if you can guess what words they used in their grid. You guess each of Words 1 to 5 with normal Wordle rules: letters turn green if they are correct and in the correct place, and yellow if they are in that word but you\’ve guessed them in the wrong place.  Word 1 is Cluebot\’s first guess and Word 5 is the final answer to the Clue Grid.`
 +`\r\n\r\n`
-+`Your score is the total number of guesses it takes you to get all of Words 1 - 5 and fill in the Clue Grid.  The lower the better!  If you fail to guess any of the words with five guesses then you lose that game.`
++`Your score is the total number of guesses it takes you to get all of Words 1 to 5 and fill in the Clue Grid.  The lower the better!  If you fail to guess any of the words with five guesses then you lose that game.`
 +`\r\n\r\n`
 +`If you do each puzzle separately then it\’s really tough.  But the Clue Grid gives you lots of extra information that can help.  Cluebot always plays logically. For example, if you guess the first word correctly as FIRES with this Clue Grid...\r\n\r\n`
 
@@ -41,7 +41,7 @@ const text2 = document.createElement("div");
 text2.classList.add("modal-body");
 content.appendChild(text2)
 text2.textContent = `\r\n`
-+`…then you know for certain that Cluebot will not guess F, I, R or E for any of Words 2-5, because all of those letters are dark in the Clue Grid.  Because the letter S is yellow, Cluebot will always make sure that future guesses include the letter S, but they will try it in a different place.`
++`…then you know for certain that Cluebot will not guess F, I, R or E for any of Words 2 to 5, because all of those letters are dark in the Clue Grid.  Because the letter S is yellow, Cluebot will always make sure that future guesses include the letter S, but they will try it in a different place.`
 +`\r\n\r\n`
 +`You can visit the \‘Tips & Tricks\’ page from the menu to find out more.\r\n\r\n`
 
