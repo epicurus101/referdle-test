@@ -1,4 +1,4 @@
-    const version = "1.03"
+    const version = "1.04"
    async function loadDictionary() {
 
     let savedVersion = localStorage.getItem("dictVersion")

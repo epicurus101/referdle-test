@@ -1,6 +1,6 @@
 import { puzzleDecider } from "./contents.js";
 
-const storageVersion = "1.00"
+const storageVersion = "1.01"
 
 if (localStorage.getItem("storageVersion") != storageVersion) {
     console.log('clearing data')
