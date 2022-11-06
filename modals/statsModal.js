@@ -273,11 +273,11 @@ function processStatsForText(stats) {
 
 
     let processed = {};
-    processed['Win %'] = (Math.round(wins * 1000 / played) / 10)
+    processed['Win %'] = (played == 0) ? 0 : (Math.round(wins * 1000 / played) / 10)
     processed['Current Streak'] = streak
     processed['Max Streak'] = maxStreak
     processed['Played'] = played
-    processed['Average Guesses'] = Math.round(totalGuesses * 10/wins) / 10
+    processed['Average Guesses'] = (wins == 0) ? "-" : Math.round(totalGuesses * 10/wins) / 10
 
     return processed
 

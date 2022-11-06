@@ -82,8 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
         populateBoards()
         keyboard.changeInput(true);
         cycleBoard();
-        document.dispatchEvent(new CustomEvent('showNewPlayerModal'));
-
+        if (!storage.returningPlayer()) {
+            document.dispatchEvent(new CustomEvent('showNewPlayerModal'));
+            localStorage.setItem("returningPlayer", "true")
+        }
 
     }
 
@@ -240,6 +242,10 @@ document.addEventListener("DOMContentLoaded", () => {
         boards[1].boardDiv.onclick();
     });
 
+    document.addEventListener('quitGame', ()=> {
+        handleLoss();
+    })
+
     function handleLoss(){
 
         storage.addToStats("X", dailyMode)
@@ -300,7 +306,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function indicator(){
         let indic = document.getElementById(`indicator`)
         indic.textContent = getTopText()
-        indic.style.lineHeight = indic.offsetHeight + 'px';
+        // if (dailyMode) {
+        //     indic.style.lineHeight = indic.offsetHeight/2 + 'px';
+        // } else {
+            indic.style.lineHeight = indic.offsetHeight + 'px';
+        // }
+
         indic.style.width = "normal";
         indic.style.width = indic.offsetWidth * 1.05 + 'px';
     }

@@ -38,6 +38,7 @@ const img = new Image();
 img.src = "images/log_tweet.jpg"
 img.style.width = (content.offsetWidth * 0.8) + 'px'
 img.style.height =  (content.offsetWidth * 0.8 * 495/1281) + 'px'
+img.style.margin = "auto"
 content.appendChild(img)
 modal.style.display = "none"
 

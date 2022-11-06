@@ -4,8 +4,6 @@ document.addEventListener('showNewPlayerModal', () => {
 
     modal.style.display = "block"
 
-
-
 })
 
 modal.onclick = function() {
@@ -47,9 +45,7 @@ text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth -2 + 'px'
 // text1.style.marginLeft = '0px'
 // text1.style.padding = '0px'
 content.appendChild(text1)
-text1.textContent = `Cluebot loves to do a popular word puzzle. And when he's completed a puzzle he sends it to you!`
-+`\r\n\r\n`
-+`You have to deduce what each of Cluebot's five guesses were by using the Clue Grid.`
+text1.textContent = `Cluebot loves to do a popular word puzzle, and send the empty grid to you. You have to deduce what each of Cluebot's five guesses were by using the Clue Grid.`
 +`\r\n\r\n`
 
 let br2 = document.createElement("div")
@@ -58,12 +54,25 @@ content.appendChild(br2)
 
 const text2 = document.createElement("div");
 text2.classList.add("modal-body");
-text2.textContent = "blah boopedy baya bap bap blah boopedy here is some text I wonder how it looks when there's line upon line of this stuff going on for ages. I'm not sure where all the sentences are ending and whether the line justification works. You really need quite a lot of text for that to become apparent so here is lots of text. Is it enough? Probably but let's do a bit more to be sure."
+text2.textContent = `Each of Words 1 to 5 matches with one of the words in Cluebot's Clue Grid. By using the extra information in the Clue Grid, you can guess all five words using the fewest guesses.\r\n\r\n`
 content.appendChild(text2)
 
+const img = new Image();
+img.src = "images/grid_connect.png"
+console.log(img)
+img.style.width = (content.offsetWidth * 0.8) + 'px'
+img.style.margin = "auto"
+//img.style.height =  (content.offsetWidth * 0.8 * 495/1281) + 'px'
+content.appendChild(img)
 
+const text3 = document.createElement("div");
+text3.classList.add("modal-body");
+text3.textContent = `There's a Daily Puzzle and then you can play as many games as you like in Practice Mode.\r\n\r\nCheck out 'How to Play' in the menu for more information.  For even more help, there's a 'Tips & Tricks' to explore the logic of Referdle.`
+content.appendChild(text3)
 
 modal.style.display = "none"
+
+
 
 // +`The font is Public Sans (https://public-sans.digital.gov)`
 // +`\r\n\r\n`

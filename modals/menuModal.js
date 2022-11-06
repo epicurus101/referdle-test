@@ -36,7 +36,7 @@ function showMenu() {
         ["How to Play", "help", "showHelpModal"],
         ["Tips & Tricks", "tips", "showTips"],
         ["Statistics", "graph", "showStatsModal"],
-        ["Abandon Game", "abandon", "abandon"],
+        ["Abandon Game", "abandon", "showSureModal"],
         ["About", "info", "showAboutModal"]
     ]
 

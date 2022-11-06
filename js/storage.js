@@ -1,5 +1,12 @@
 import { puzzleDecider } from "./contents.js";
 
+const storageVersion = "1.00"
+
+if (localStorage.getItem("storageVersion") != storageVersion) {
+    localStorage.clear()
+    localStorage.setItem("storageVersion", storageVersion)
+}
+
 const storage = (function() {
 
     function doesStorageKeyExist(str){
@@ -172,6 +179,7 @@ const storage = (function() {
         updateDaily: updateDaily,
         resolveStreak: resolveStreak,
         get: get,
+        returningPlayer: returningPlayer,
     }
 
 })();

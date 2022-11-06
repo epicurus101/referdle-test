@@ -30,6 +30,7 @@
     <script type="module" src="modals/dictModal.js"></script>
     <script type="module" src="modals/menuModal.js"></script>
     <script type="module" src="modals/aboutModal.js"></script>
+    <script type="module" src="modals/sureModal.js"></script>
     <script type="module" src="modals/nextPuzzleModal.js"></script>
     <script type="module" src="modals/newPlayerModal.js"></script>
     <script type="module" src="js/storage.js"></script>
@@ -49,7 +50,7 @@
             <header>
                 <input type="image" src="images/logo.png" name="logo" width="64" height="40" alt="logo"/>
                 <!-- <div class="spacer-quarter"></div> -->
-                <h1 class="title" id="big-title">v0.87</h1>
+                <h1 class="title" id="big-title">v0.88</h1>
                 <div id="indicator"></div>
                 <div class="spacer-half"></div>
                 <input type="image" src="images/menu.png" id="menu-button" name="menu" width="50" height="50" alt="menu"/>  
@@ -112,11 +113,20 @@
                     <h2>About / Credits</h2>
                 </div>
             </div>
-            <div id="newPlayerModal" class = "modal">
-
-
+            <div id="sureModal" class = "modal">
                 <div class="modal-content">
-
+                    <h2>Quit Game?</h2>
+                    <br>
+                    <p>Are you sure you want to quit this game?</p>
+                    <br>
+                    <div id="sure-mode-button-holder">
+                        <div class="sure-mode-button">Back</div>
+                        <div class="sure-mode-button">Quit</div>
+                    </div>
+                </div>
+            </div>
+            <div id="newPlayerModal" class = "modal">
+                <div class="modal-content">
                     <div class="modal-header">
                         <span class="close" class="prevent-select">&times;</span>
                         <h2>Welcome to Referdle</h2>
@@ -139,7 +149,6 @@
                     <h2>Your Statistics<h2>
                     <br>
                     <div id="stat-mode-button-holder">
-                        <div class="stat-slider"></div>
                         <div class="stat-mode-button">Practice</div>
                         <div class="stat-mode-button">Daily</div>
                     </div>

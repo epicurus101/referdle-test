@@ -354,6 +354,7 @@
     justify-content: baseline;
   }
 
+
 .stat-mode-button {
   color: black;
   position: relative;
@@ -407,4 +408,37 @@
   width: 100%;
   min-height: 30%;
   text-align: center;
+}
+
+  /* SureModal Stuff */
+
+  #sure-mode-button-holder {
+    display: flex;
+
+    flex-direction: row;
+    margin: auto;
+    justify-content: space-around;
+  }
+
+
+.sure-mode-button {
+  color: black;
+  position: relative;
+  background-color: var(--midGrey);
+  border: 1px solid var(--black);
+  padding: 10px;
+  font-size: 1.5rem;
+  width: 25%;
+  text-align: center;
+  font-family: customWebFont;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+}
+
+.sure-mode-button:hover,
+.sure-mode-button:focus {
+  filter:brightness(150%);
+  cursor: pointer;
 }
