@@ -79,7 +79,7 @@ function hideMenu() {
 }
 
 document.addEventListener('showTips', ()=> {
-    window.open("../tips.html");
+    window.open("/tips.html");
 })
 
 
