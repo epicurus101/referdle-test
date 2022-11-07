@@ -77,6 +77,11 @@ function hideMenu() {
       menuModal.style.display = "none"
 }
 
+document.addEventListener('showTips', ()=> {
+    window.open("../tips.html");
+})
+
+
 // function setPosition(board){
 //     const container = document.getElementById('board-container')
 //     const square1 = board.getSquare(board.guessedWordCount * 5 + 1)
