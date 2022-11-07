@@ -1,4 +1,4 @@
-const version = "1.00"
+const version = "1.01"
     async function loadPuzzles() {
 
         let savedVersion = localStorage.getItem("puzzleVersion")

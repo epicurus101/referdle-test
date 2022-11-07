@@ -12,7 +12,7 @@
     />
 
 </head>
-<body>
+<body style="background-color:black;">
     <div id="container">
         <div id="game">
             <header>
@@ -23,12 +23,46 @@
             <h2>The basics</h2>
             <p>Remember that Cluebot is always completely logical. So they will never guess a letter if it has been ruled out by a previous guess. And they always use the letters from the target word that they have found.</p>
             <br>
-            <p>So in this grid, Words 2 to 5 will all include an S and will definitely not include any of the letter F, I, R or E.</p>
+            <p>So in this Clue Grid, Words 2 to 5 will all include an S and will definitely not include any of the letter F, I, R or E.</p>
             <br>
             <input type="image" src="images/help_fires.jpg"  width="100%"/>
             <br>
             <h2>Travelling letters</h2>
-            <p>You can tell a lot even before </p>
+            <p>Because Cluebot is so logical, you can tell a lot about a grid before you even make any guesses.</p>
+            <br>
+            <p>Take a look at this Clue Grid for instance:</p>
+            <br>
+            <input type="image" src="images/travellers_1.jpg"  width="100%"/>
+            <br>
+            <p>You can tell that some of the letters are going to be the same straight away.</p>
+            <br>
+            <input type="image" src="images/travellers_2.jpg"  width="100%"/> 
+            <br>
+            <p>All of the blue question marks are going to be the same. That's the easy bit. </p>
+            <br>
+            <p> But you can also deduce that all of the pink question marks are the same letter. When Cluebot finds that letter in Word 1 (but knows it's in the wrong place) they will definitely try it in a different place for Word 2, and again for Word 3. </p>
+            <br>
+            <p>In Word 4 another yellow square shows up, but we know that it's not our travelling letter, because Cluebot had already tried that space in Word 3, and will never try it again knowing it's in the wrong place.</p>
+            <br>
+            <h2>Unlikely pairings</h2>
+            <p>But wait, we can narrow down our options even more just using this same grid!</p>
+            <br>
+            <p>Look again at where the blue and pink question marks are placed.</p>
+            <br>
+            <input type="image" src="images/travellers_2.jpg"  width="100%"/> 
+            <br>
+            <p>Maybe you were thinking of making your first guess 'SHOUT'. It's a perfectly good word, so why not?</p>
+            <br>
+            <p>But if the first two letters of Word 1 are 'SH' then you know from the Clue Grid that the second and third letters of Word 3 are 'HS'. Hmm, that's not a very common letter pairing in English.</p>
+            <br>
+            <p>Maybe it's something like 'LAGER'. That way, Words 2 and 3 could be 'BAILS' and 'TALON' maybe? But you can safely rule out some words, and reduce the number of wasted guesses you make.</p>
+            <br>
+            <h2>Blanks can be useful too</h2>
+            <p>When you guess a word and you come up with blanks it can be tempting to think that you get no useful information for the other words. But that's not true! Take a look at this grid:</p>
+            <br>
+            <input type="image" src="images/blanks.jpg"  width="100%"/> 
+            <br>
+            <p>We know that T, I, N and K don't appear in the first word. They might appear in Word 2. But we know for certain that T, I, N and K are not in the yellow and green squares in Word 2 in the Clue Grid. So Word 2 could be 'BRICK' (because I is still a possibility in that third position of Word 2) but it definitely will not be 'INGOT' (because we know I and N do not appear in the first two letters).</p>
         </div>         
     </div>
 </body>
