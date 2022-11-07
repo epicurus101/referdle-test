@@ -45,7 +45,7 @@ text1.style.width = (modal.offsetWidth * 0.8) - cluebot.offsetWidth - (content.o
 // text1.style.marginLeft = '0px'
 // text1.style.padding = '0px'
 content.appendChild(text1)
-text1.textContent = `Cluebot loves to play Wordle. He's sent you the grid he's solved today with all the letters removed.`
+text1.textContent = `Cluebot loves to play Wordle. Cluebot just sent you the grid they solved today with all the letters removed.`
 +`\r\n\r\n`
 
 let br2 = document.createElement("div")
@@ -54,7 +54,7 @@ content.appendChild(br2)
 
 const text2 = document.createElement("div");
 text2.classList.add("modal-body");
-text2.textContent = `Your task is to work out each word that Cluebot guessed. Read the 'How to Play' section in the menu for more!\r\n\r\n`
+text2.textContent = `Your task is to work out each word that Cluebot guessed, by guessing valid five-letter words. Read the 'How to Play' section in the menu for more!\r\n\r\n`
 content.appendChild(text2)
 
 const img = new Image();
