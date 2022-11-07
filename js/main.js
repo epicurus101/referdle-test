@@ -114,10 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
             puzzle.forEach((word,index) => {puzzle[index] = word.toLowerCase()})
             loadPuzzle(puzzle, dailyMode)
             puzzleDecider.startStreakProcess(dailyMode)
-        // } else if (puzzleDecider.isPracticeInProgress()) {
-        //     // console.log("done daily, found a saved practice")
-        //     dailyMode = false
-        //     storage.loadCurrentState(boards, dailyMode)
+        } else if (puzzleDecider.isPracticeInProgress()) {
+            // console.log("done daily, found a saved practice")
+            dailyMode = false
+            storage.loadCurrentState(boards, dailyMode)
         } else {
             // console.log("all other routes explored, creating a new practice")
             dailyMode = false
