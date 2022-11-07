@@ -79,9 +79,9 @@
     background-color: var(--highlight);
     color: var(--black);
     font-size: 1.0rem;
-    height: 80%;
-    width: auto;
-    border-radius:50vh;
+    min-height: 50%;
+    /* width: auto; */
+    /* border-radius:50vh; */
     text-align: center;
     font-family: customWebFont;
     font-weight: normal;

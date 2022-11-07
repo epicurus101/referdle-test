@@ -314,8 +314,8 @@ document.addEventListener("DOMContentLoaded", () => {
             indic.style.lineHeight = indic.offsetHeight + 'px';
         // }
 
-        indic.style.width = "normal";
-        indic.style.width = indic.offsetWidth * 1.10 + 'px';
+        // indic.style.width = "normal";
+        // indic.style.width = indic.offsetWidth * 1.10 + 'px';
     }
 
     function colorConform(){
