@@ -31,6 +31,7 @@ function showMenu() {
     menuModal.style.width = (widthScale * 0.4) + 'px'
     menuModal.style.height = widthScale/10 + 'px'
     menuModal.style.left = (widthScale + menuModal.parentElement.offsetLeft - menuModal.offsetWidth) + `px`
+    menuModal.style.top = menuModal.parentElement.offsetTop + `px`
 
     const data = [
         ["How to Play", "help", "showHelpModal"],

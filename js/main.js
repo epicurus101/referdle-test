@@ -244,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener('quitGame', ()=> {
         console.log("detected quit game")
+        storage.deleteSave(dailyMode);
         handleLoss();
     })
 

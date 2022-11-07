@@ -27,7 +27,6 @@ buttons.forEach(element => {
             modal.style.display = "none"
         } else if (element.textContent == "Quit") {
             modal.style.display = "none"
-            storage.deleteSave(true);
             document.dispatchEvent(new CustomEvent('quitGame'));
         }
     }
