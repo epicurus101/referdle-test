@@ -1,38 +1,38 @@
-    const version = "1.04"
-   async function loadDictionary() {
+let dictionary = {
 
-    let savedVersion = localStorage.getItem("dictVersion")
+    version : "1.04",
 
-    let save = getDictionaryFromLS()
-        if (save != null && version == savedVersion) {
+    words: [],
+
+    load : async function() {
+        let savedVersion = localStorage.getItem("dictVersion")
+        let save = dictionary.getFromLS()
+        if (save != null && dictionary.version == savedVersion) {
             console.log("we had a save and it's the same as the version we think")
-            return save
+            dictionary.words = save;
         } else {
-            localStorage.removeItem("saveGame")
-            save = await downloadDictionary()
-            return save
+            dictionary.words = await dictionary.download()
         }
-    }
+    },
 
-    async function downloadDictionary(){
+    download : async function() {
         const response = await fetch('dictionary.json');
         let array = await response.json();
         array.forEach((word, index) => {
             array[index] = word.toLowerCase();
         })
-        saveDictionary(array);
+        dictionary.save(array);
         console.log("dictionary loaded from web and saved");
         return array
-    }
+    },
 
-    function saveDictionary(dict){
+    save: function(dict){
         let str = JSON.stringify(dict);
         localStorage.setItem("dictionary", str);
         localStorage.setItem("dictVersion", version)
+    },
 
-    }
-    
-    function getDictionaryFromLS(){
+    getFromLS: function (){
         const save = localStorage.getItem("dictionary");
         if (save == null) { return null };
         let dict = JSON.parse(save);
@@ -40,6 +40,7 @@
     }
 
 
+}
 
 
-    export {loadDictionary}
+export {dictionary}

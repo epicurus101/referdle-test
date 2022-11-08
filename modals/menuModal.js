@@ -5,6 +5,8 @@ const button = document.getElementById("menu-button")
 
 let menuActive = false
 
+let reviewMode = false
+
 button.onclick = () => {
     menuActive = !menuActive;
     if (menuActive) {
@@ -25,13 +27,14 @@ window.onclick = (e) => {
 function showMenu() {
 
     menuModal.style.display = "block";
+    let board = document.getElementById("board-container")
 
     const widthScale = menuModal.parentElement.offsetWidth;
 
     menuModal.style.width = (widthScale * 0.4) + 'px'
     menuModal.style.height = widthScale/10 + 'px'
-    menuModal.style.left = (widthScale + menuModal.parentElement.offsetLeft - menuModal.offsetWidth) + `px`
-    menuModal.style.top = menuModal.parentElement.offsetTop + `px`
+    menuModal.style.left = (widthScale + board.offsetLeft - menuModal.offsetWidth) + `px`
+    menuModal.style.top = board.offsetTop + `px`
 
     const data = [
         ["How to Play", "help", "showHelpModal"],
@@ -49,7 +52,10 @@ function showMenu() {
         element.style.flexDirection = "row"
         menuModal.appendChild(element)
         element.onclick = () => {
-            document.dispatchEvent( new CustomEvent(inf[2]))
+            if (!reviewMode || index !=3) {
+                document.dispatchEvent( new CustomEvent(inf[2]))
+            }
+
         }
 
         const text = document.createElement("div")
@@ -80,6 +86,14 @@ function hideMenu() {
 
 document.addEventListener('showTips', ()=> {
     window.open("tips.html");
+})
+
+document.addEventListener('endGame', ()=> {
+    reviewMode = true
+})
+
+document.addEventListener('startAgain', ()=> {
+    reviewMode = false
 })
 
 

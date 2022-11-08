@@ -1,3 +1,4 @@
+import { dictionary } from "./contents.js";
 
 const logic = (function(){
 
@@ -27,14 +28,16 @@ const logic = (function(){
         return result;
     }
 
-    function newPuzzle(dictionary){
+    function newPuzzle(){
 
-        if (dictionary.length == 0) {console.log("dictionary failed"); return}
+        let dict = dictionary.words;
+
+        if (dict.length == 0) {console.log("dictionary failed"); return}
     
         let words = [];
         outerLoop:
         while (words.length < 5) {
-            let pool = new Set(dictionary); // this is the pool!
+            let pool = new Set(dict); // this is the pool!
             words = [];
             const diff5 = x => x.uniqueChars() == 5;
             const different5Pool = pool.filter( diff5 );

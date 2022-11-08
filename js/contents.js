@@ -1,6 +1,6 @@
 import { Board } from './board.js';
 import { logic } from './logic.js';
-import {loadDictionary} from './dictionary.js';
+import {dictionary} from './dictionary.js';
 import {keyboard} from './keyboard.js';
 import {imageGen} from './imageGen.js';
 import {uColours} from './uColours.js';
@@ -14,7 +14,7 @@ import { loadPuzzles } from './dailyPuzzles.js';
 export {
     Board,
     logic,
-    loadDictionary,
+    dictionary,
     keyboard,
     imageGen,
     uColours,

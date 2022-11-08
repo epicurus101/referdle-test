@@ -88,9 +88,6 @@ function addText(stats){
         label.textContent = statLabel
         label.style.fontSize = sideH / 15 + 'px'
         box.appendChild(label)
-        // stat.style.lineHeight = stat.offsetHeight + 'px'
-        // label.style.lineHeight = label.offsetHeight + 'px'
-        // console.log(stat.offsetHeight, label.offsetHeight)
     });
 
 
@@ -152,7 +149,11 @@ function getGraph(stats){
             }
 
             bar.style.width = ((sideW / 24) -1 ) + 'px'
-            bar.style.backgroundColor = "rgb(150,150,30)"
+            if (index == 23) {
+                bar.style.backgroundColor = uColours.orange
+            } else {
+                bar.style.backgroundColor = uColours.highlight
+            }
             graph.append(bar)
         }
     }

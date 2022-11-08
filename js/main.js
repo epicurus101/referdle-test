@@ -2,7 +2,7 @@ import {
     Board,
     logic,
     storage,
-    loadDictionary,
+    dictionary,
     keyboard,
     uColours,
     puzzleDecider,
@@ -14,7 +14,6 @@ import {
 document.addEventListener("DOMContentLoaded", () => {
 
     let boards = [];
-    let dictionary = [];
     let dailyPuzzles = [];
     let board;
     let dailyMode = true;
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         colorConform();
         indicator();
         keyboard.initialise();
-        dictionary = await loadDictionary();
+        await dictionary.load();
         dailyPuzzles = await loadPuzzles();
         createBoards()
         populateBoards()
@@ -121,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             // console.log("all other routes explored, creating a new practice")
             dailyMode = false
-            let puzzle = logic.newPuzzle(dictionary);
+            let puzzle = logic.newPuzzle();
             loadPuzzle(puzzle, dailyMode)
             puzzleDecider.startStreakProcess(dailyMode)
         }
@@ -154,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }});
             document.dispatchEvent(event);
             return;
-        } else if (!dictionary.includes(currentWord)) {
+        } else if (!dictionary.words.includes(currentWord) && currentWord != board.targetWord) {
             const event = new CustomEvent('showDictModal', {detail: {
                 board: board,
                 message: "NOT IN DICTIONARY"

@@ -19,18 +19,24 @@ span.onclick = function(e) {
 
 document.addEventListener('endGame', (e) => {
 
+    let board = document.getElementById("board-container")
+    board.style.filter = "blur(10px)"
+    let menu = document.getElementById("menuModal")
+    menu.style.filter = "blur(0)"
+
     addText(e.detail.win, e.detail.guesses, e.detail.streak, e.detail.daily, e.detail.boards);
     modal.style.display = "block";
 
-    let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses, content.offsetWidth * 0.8, e.detail.topText);
+    let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses, content.offsetWidth * 0.2, e.detail.topText);
 
     content.appendChild(holder);
 
-    let button = document.createElement("a")
-    button.classList.add('twitter-share-button')
-    button.href ="https://twitter.com/intent/tweet?text=Hello%20world"
-    button.dataSize = 'large'
-    button.textContent = 'Tweet'
+    let button = document.createElement("div")
+    button.setAttribute("id", "share-button")
+    button.onclick = () => {
+        let shareText = getShareText(e.detail)
+    }
+    button.textContent = 'Share'
     content.appendChild(button)
     document.dispatchEvent(new CustomEvent(`keyboardDisappear`));
 });
@@ -49,9 +55,21 @@ function closeModal() {
       heading.textContent = "Game Over"
       content.appendChild(heading)
     modal.style.display = "none";
+    let board = document.getElementById("board-container")
+    board.style.filter = "blur(0)"
     document.dispatchEvent(new CustomEvent(`reviewMode`));
 }
 
+function getShareText(detail) {
+    let text
+    if (detail.win) {
+        text = detail.topText + `\r\n` + `${detail.guesses}/25\r\n `
+    } else {
+        text = "I failed to complete " + (detail.daily ? 'the' + detail.topText : 'a Practice Referdle')
+    }
+    return text
+
+}
 
 function addText(win, guesses, streak, daily, boards) {
 
@@ -64,7 +82,7 @@ function addText(win, guesses, streak, daily, boards) {
         let mode2 = daily ? "Daily Mode" : "Practice Mode"
         text1.textContent = `\r\nYou completed ${mode} in ${guesses}/25 guesses.\r\n\r\nCurrent ${mode2} Streak: ${streak}`
     } else {
-        text1.textContent = `\r\nYou failed. The answers were ${boards[1].targetWord.toUpperCase()}, ${boards[2].targetWord.toUpperCase()}, ${boards[3].targetWord.toUpperCase()}, ${boards[4].targetWord.toUpperCase()} and ${boards[5].targetWord.toUpperCase()}\r\nYou can keep on playing in Practice Mode`
+        text1.textContent = `\r\nThe answers were ${boards[1].targetWord.toUpperCase()}, ${boards[2].targetWord.toUpperCase()}, ${boards[3].targetWord.toUpperCase()}, ${boards[4].targetWord.toUpperCase()} and ${boards[5].targetWord.toUpperCase()}\r\nYou can keep on playing in Practice Mode`
     }
 
 

@@ -1,4 +1,4 @@
-import { logic, uColours, animateCSS } from "./contents.js";
+import { logic, uColours, dictionary, animateCSS } from "./contents.js";
 
 export class Board {
     
@@ -215,7 +215,26 @@ export class Board {
             currentWordArr.push(letter);
             const availableSpaceEl = document.getElementById(`b${this.index}-${this.availableSpace}`);
             availableSpaceEl.textContent = letter;
+            let word = currentWordArr.join("")
+            if (currentWordArr.length == 5 && !dictionary.words.includes(word)){
+                this.turnWordOrange(this.availableSpace-4, this.availableSpace)
+            }
+
             this.availableSpace += 1;
+        }
+    }
+
+    turnWordOrange(start, finish) {
+        for (let index = start; index <= finish; index++) {
+            const element = document.getElementById(`b${this.index}-${index}`)
+            element.style.color = uColours.orange;
+        }
+    }
+
+    turnWordWhite(start, finish) {
+        for (let index = start; index <= finish; index++) {
+            const element = document.getElementById(`b${this.index}-${index}`)
+            element.style.color = uColours.offWhite;
         }
     }
 
@@ -223,6 +242,9 @@ export class Board {
         const currentWordArr = this.getCurrentWordArr();
         if (currentWordArr && currentWordArr.length > 0) {
             currentWordArr.pop();
+            if (currentWordArr.length == 4) {
+                this.turnWordWhite(this.availableSpace-5, this.availableSpace-1)
+            }
             this.availableSpace -= 1;
             const availableSpaceEl = document.getElementById(`b${this.index}-${this.availableSpace}`);
             availableSpaceEl.textContent = "";

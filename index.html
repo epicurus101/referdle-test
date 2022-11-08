@@ -5,22 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referdle</title>
-    <script>window.twttr = (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-          t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      
-        t._e = [];
-        t.ready = function(f) {
-          t._e.push(f);
-        };
-      
-        return t;
-      }(document, "script", "twitter-wjs"));</script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/board.js"></script>
     <script type="module" src="js/helpers.js"></script>
@@ -34,7 +18,7 @@
     <script type="module" src="modals/nextPuzzleModal.js"></script>
     <script type="module" src="modals/newPlayerModal.js"></script>
     <script type="module" src="js/storage.js"></script>
-    <script type="module" src="js/dictionary.js"></script>
+    <!-- <script type="module" src="js/dictionary.js"></script> -->
     <script type="module" src="js/keyboard.js"></script>
     <script src="js/longPressEvent.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
@@ -49,7 +33,7 @@
         <div id="game">
             <header>
                 <input type="image" src="images/logo.png" name="logo" width="64" height="40" alt="logo"/>
-                <h1 class="title" id="big-title">v0.99</h1>
+                <h1 class="title" id="big-title">v1.00</h1>
                 <div id="indicator"></div>
                 <div class="spacer-quarter"></div>
                 <input type="image" src="images/menu.png" id="menu-button" name="menu" width="50" height="50" alt="menu"/>  
@@ -59,8 +43,8 @@
                 Click here for another puzzle!
             </div>
             <div id="board-container">
-                <div id="menuModal"> </div>
             </div>
+            <div id="menuModal"> </div>
             <div id="keyboard-container" class="prevent-select">
                 <div class="keyboard-row" class="prevent-select">
                     <button data-key="q">q</button>
