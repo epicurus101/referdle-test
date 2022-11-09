@@ -1,5 +1,4 @@
-import {imageGen} from '../js/imageGen.js';
-
+import { copyText, imageGen, statElement } from '../js/contents.js'
 
 const modal = document.getElementById("endGameModal");
 const span = modal.querySelector('.close');
@@ -34,10 +33,22 @@ document.addEventListener('endGame', (e) => {
     let button = document.createElement("div")
     button.setAttribute("id", "share-button")
     button.onclick = () => {
-        let shareText = getShareText(e.detail)
+        let shareText = copyText.get(e.detail)
+        console.log(shareText)
     }
     button.textContent = 'Share'
     content.appendChild(button)
+
+    let graph = modal.querySelector("#statsGraph")
+    if (graph) {
+        content.removeChild(graph)
+    }
+
+    statElement.sideW = content.offsetWidth * 0.8;
+    statElement.sideH = statElement.sideW * 0.5;
+    let graph2 = statElement.getGraph(e.detail.daily)
+    content.appendChild(graph2);
+
     document.dispatchEvent(new CustomEvent(`keyboardDisappear`));
 });
 

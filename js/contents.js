@@ -9,6 +9,8 @@ import { puzzleDecider } from './puzzleDecider.js';
 import { boardManager } from './boardManager.js';
 import { animateCSS } from './helpers.js';
 import { loadPuzzles } from './dailyPuzzles.js';
+import { statElement } from './statElement.js';
+import {copyText} from './copyText.js'
 
 
 export {
@@ -22,5 +24,8 @@ export {
     puzzleDecider,
     boardManager,
     animateCSS,
-    loadPuzzles
+    loadPuzzles,
+    statElement,
+    copyText,
+
 }

@@ -1,4 +1,4 @@
-import {storage, uColours} from '../js/contents.js';
+import {storage, uColours, statElement} from '../js/contents.js';
 
 const modal = document.getElementById("statsModal");
 const content = modal.querySelector(".modal-content")
@@ -49,19 +49,13 @@ document.addEventListener('switchStats', (e) => {
         stats = JSON.parse(recordedString)
     }
     addText(stats)
-    addGraph(stats)
+    statElement.sideH = sideH;
+    statElement.sideW = sideW;
+    let graph2 = statElement.getGraph(statsDaily)
+    content.appendChild(graph2);
 
 
 })
-
-function addGraph(stats){
-
-    let processed = processStatsForGraph(stats)
-
-    let graph = getGraph(processed)
-    content.appendChild(graph)
-
-}
 
 
 
@@ -108,148 +102,6 @@ span.onclick = function() {
     modal.style.display = "none";
     let graph = modal.querySelector("#statsGraph")
     content.removeChild(graph)
-
-}
-
-function getGraph(stats){
-
-    let largest = Math.max(...Object.values(stats))
-    let scale = getScale(largest)
-
-    console.log(stats)
-
-    const graph = document.createElement("div");
-    graph.setAttribute("id", "statsGraph")
-
-    graph.style.display = "grid"
-    graph.style.gridTemplateColumns = "repeat(24,1fr)"
-    graph.style.gridTemplateRows = `${sideH}px ${sideW/15}px`
- //   graph.style.border = `1px solid ${uColours.midGrey}`
-    graph.style.width = sideW + 'px';
-    graph.style.alignItems = 'end'
-    graph.style.margin = '0px auto'
-    console.log(graph)
-
-    for (let index = 0; index < 24; index++) {
-        if (index == 0) {
-            let axis = document.createElement("div")
-            axis.style.borderRight = "1px solid rgb(58,58,60)"
-            axis.style.height = sideH + 'px'
-            axis.style.width = (sideW / 24 ) + 'px'
-            graph.append(axis)
-
-            let axisScale = getAxisScale(scale, largest)
-            axis.appendChild(axisScale)
-        } else {
-            let bar = document.createElement("div");
-            if (stats[index+4]) {
-                bar.style.height = sideH * stats[index+4] / largest + 'px'
-            } else {
-                bar.style.height = 0+'px'
-            }
-
-            bar.style.width = ((sideW / 24) -1 ) + 'px'
-            if (index == 23) {
-                bar.style.backgroundColor = uColours.orange
-            } else {
-                bar.style.backgroundColor = uColours.highlight
-            }
-            graph.append(bar)
-        }
-    }
-
-    for (let index = 0; index < 24; index++) {
-        let txt = document.createElement("div");
-        txt.classList.add("grid-axis")
-        txt.style.fontSize = sideW/30 + 'px'
-        txt.style.height = sideW/15 + 'px'
-        let num = index+4
-
-        if (num >= 5) {
-            txt.style.borderTop = "1px solid rgb(58,58,60)"
-        }
-        if (num >= 5 && num%5 == 0 && num <= 25) {
-            txt.textContent = num
-        } else if (num == 27) {
-            txt.textContent = "X"
-        }
-
-        graph.append(txt)
-        
-    } 
-    return graph
-
-}
-
-function getScale(maxValue) {
-
-    const array = [1,2,5,10,25,50,100,250,500,1000,2500,5000,10000]
-
-    for (let index = 0; index < array.length; index++) {
-        const scale = array[index];
-        if (maxValue/scale <= 6) {
-            return scale
-        }
-
-    }
-    return 1000000000
-}
-
-function getAxisScale(scale, maxValue) {
-
-    let rowHeight = (scale / maxValue) * sideH
-
-    let labelNo = Math.floor(maxValue / scale)
-
-    let holder = document.createElement("div")
-    holder.style.height = sideH +'px';
-    holder.style.width = sideW/24 + 'px';
-    holder.style.display = "flex"
-    holder.style.flexDirection = "column-reverse"
-    holder.style.alignContent = "flex-end"
-    holder.style.justifyContent = "flex-start"
-
-    for (let index = 0; index < labelNo; index++) {
-        let bar = document.createElement("div");
-        bar.style.display = "inline-block"
-        bar.classList.add("axisBox")
-        bar.style.height = rowHeight + 'px';
-        bar.style.borderTop = '1px solid rgb(0,0,0)'
-        if (index == 0) {
-            bar.style.borderBottom = '1px solid rgb(0,0,0)'
-        }
-        bar.textContent = (index + 1) * scale
-        bar.style.direction = 'rtl'
-        bar.style.overflow = "visible"
-        bar.style.fontSize = sideW/30 + 'px'
-        holder.append(bar)
-        
-    }
-
-    return holder;
-
-}
-
-function processStatsForGraph(stats) {
-
-    console.log(stats)
-    let obj = {}
-
-    Array.from(stats).forEach( function(element) {
-        console.log(element);
-
-        if (element == "X" && '27' in obj) {
-            obj[27] = obj[27] + 1
-        } else if (element == "X") {
-            obj[27] = 1
-        } else if (element in obj) {
-            obj[element] = obj[element] + 1
-        } else {
-            obj[element] = 1
-        }
-    });
-
-    return obj;
 
 }
 
