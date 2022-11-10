@@ -137,7 +137,7 @@
   .square {
     border: 2px solid var(--darkGrey);
     min-width: 10px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.1;
     color: var(--offWhite);
     text-transform: uppercase;
     padding: 0px;
@@ -149,7 +149,7 @@
   }
   
   #keyboard-container {
-    height: 200px;
+    height: 150px;
   }
   
   .keyboard-row {
@@ -166,7 +166,7 @@
     font-size: 15px;
     padding: 0px;
     border: 1px solid var(--midGrey);
-    height: 58px;
+    height: 42px;
     cursor: pointer;
     background-color: var(--midGrey);
     color: var(--offWhite);
@@ -443,4 +443,37 @@
 .sure-mode-button:focus {
   filter:brightness(150%);
   cursor: pointer;
+}
+
+#share-button {
+  color: var(--offWhite);
+  background-color: var(--green);
+  padding: 10px;
+  font-size: 1.5rem;
+  min-width: 25%;
+  max-width: 33%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  margin: 0px auto;
+}
+
+#share-button:hover,
+#share-button:focus {
+  filter:brightness(150%);
+  cursor: pointer;
+}
+
+#copiedModal {
+  position: absolute;
+  display: table;
+  z-index: 100;
+  border-radius: 10px;
+  background-color: var(--black);
+  color: var(--offWhite);
+  text-align: center;
+  font-family: customWebFont;
+  font-size: 1rem;
 }

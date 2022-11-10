@@ -42,7 +42,6 @@ export class Board {
             square.classList.add("animate__animated");
             square.setAttribute("id", `b${index}-${i + 1}`);
             this.contDiv.appendChild(square);
-            
         }
 
         this.boardDiv.onclick = () => {

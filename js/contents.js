@@ -11,6 +11,7 @@ import { animateCSS } from './helpers.js';
 import { loadPuzzles } from './dailyPuzzles.js';
 import { statElement } from './statElement.js';
 import {copyText} from './copyText.js'
+import { cumulativeOffset } from './helpers.js';
 
 
 export {
@@ -27,5 +28,5 @@ export {
     loadPuzzles,
     statElement,
     copyText,
-
+    cumulativeOffset
 }

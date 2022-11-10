@@ -7,7 +7,7 @@ let statElement = {
     sideH: 0,
     sideW: 0,
 
-    getGraph: function (daily) {
+    getStats: function(daily){
         let storedString = storage.get('stats', daily)
         let stats;
         if (storedString == "") {
@@ -15,6 +15,11 @@ let statElement = {
         } else {
             stats = JSON.parse(storedString)
         }
+        return stats
+    },
+
+    getGraph: function (daily) {
+        let stats = statElement.getStats(daily)
 
         let processed = statElement.processForGraph(stats)
         console.log('stats:',processed)
@@ -158,10 +163,70 @@ let statElement = {
             holder.append(bar)
 
         }
-
         return holder;
+    },
 
+
+    getTextBoxes: function(daily) {
+
+        let stats = statElement.getStats(daily)
+        let processed = statElement.processStatsForText(stats)
+        let labels = ['Win %','Current Streak', 'Max Streak', 'Played', 'Average Guesses']
+    
+        const text = document.createElement("div");
+        text.setAttribute("id", "textStatsHolder")
+        text.style.width = statElement.sideW + 'px'
+        text.style.height = statElement.sideH * 0.6 + 'px'
+        labels.forEach(statLabel => {
+            let box = document.createElement("div");
+            box.classList.add("textStatsBox");
+            text.appendChild(box)
+            let stat = document.createElement("div")
+            stat.classList.add("textStat")
+            stat.textContent = processed[statLabel]
+            stat.style.fontSize = statElement.sideH / 6 + 'px'
+            box.appendChild(stat)
+            let label = document.createElement("div")
+            label.classList.add('textStatLabel')
+            label.textContent = statLabel
+            label.style.fontSize = statElement.sideH / 15 + 'px'
+            box.appendChild(label)
+        });
+        return text
+    },
+
+    processStatsForText: function(stats) {
+
+        let played = stats.length;
+    
+        let streak = 0
+        let maxStreak = 0
+        let wins = 0
+        let totalGuesses = 0
+        stats.forEach(element => {
+            if (element == "X") {
+                streak = 0
+            } else {
+                totalGuesses += element;
+                streak += 1;
+                wins += 1;
+                maxStreak = Math.max(streak, maxStreak);
+            }
+        });
+    
+    
+        let processed = {};
+        processed['Win %'] = (played == 0) ? 0 : (Math.round(wins * 1000 / played) / 10)
+        processed['Current Streak'] = streak
+        processed['Max Streak'] = maxStreak
+        processed['Played'] = played
+        processed['Average Guesses'] = (wins == 0) ? "-" : Math.round(totalGuesses * 10/wins) / 10
+    
+        return processed
+    
     }
+
+
 }
 
 export { statElement }

@@ -29,7 +29,7 @@ let dictionary = {
     save: function(dict){
         let str = JSON.stringify(dict);
         localStorage.setItem("dictionary", str);
-        localStorage.setItem("dictVersion", version)
+        localStorage.setItem("dictVersion", dictionary.version)
     },
 
     getFromLS: function (){

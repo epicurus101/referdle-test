@@ -26,18 +26,10 @@ document.addEventListener('endGame', (e) => {
     addText(e.detail.win, e.detail.guesses, e.detail.streak, e.detail.daily, e.detail.boards);
     modal.style.display = "block";
 
-    let holder = imageGen.endGameImage(e.detail.boards, e.detail.guesses, content.offsetWidth * 0.2, e.detail.topText);
-
-    content.appendChild(holder);
-
-    let button = document.createElement("div")
-    button.setAttribute("id", "share-button")
-    button.onclick = () => {
-        let shareText = copyText.get(e.detail)
-        console.log(shareText)
+    let text = modal.querySelector("#textStatsHolder")
+    if (text) {
+        content.removeChild(text)
     }
-    button.textContent = 'Share'
-    content.appendChild(button)
 
     let graph = modal.querySelector("#statsGraph")
     if (graph) {
@@ -46,10 +38,36 @@ document.addEventListener('endGame', (e) => {
 
     statElement.sideW = content.offsetWidth * 0.8;
     statElement.sideH = statElement.sideW * 0.5;
+    let textBoxes = statElement.getTextBoxes(e.detail.daily)
+    content.appendChild(textBoxes)
     let graph2 = statElement.getGraph(e.detail.daily)
     content.appendChild(graph2);
 
+    let button = document.createElement("div")
+    button.setAttribute("id", "share-button")
+    button.onclick = (e2) => {
+        e2.stopPropagation();
+        document.dispatchEvent(new CustomEvent(`showCopiedModal`));
+        let shareText = copyText.get(e.detail)
+        console.log(shareText)
+    }
+    button.textContent = 'Share'
+    content.appendChild(button)
+    button.style.maxHeight = button.offsetHeight + 'px'
+    button.style.lineHeight = button.offsetHeight + 'px'
+
+    const img = new Image();
+    img.src = "images/share.png"
+    let size = button.offsetHeight
+    img.style.display = "inline-block"
+    img.style.width = size + 'px'
+    img.style.height = size + 'px'
+    img.style.margin = "0px"
+    img.style.marginLeft = "10px"
+    button.appendChild(img)
+
     document.dispatchEvent(new CustomEvent(`keyboardDisappear`));
+
 });
 
 
@@ -71,17 +89,6 @@ function closeModal() {
     document.dispatchEvent(new CustomEvent(`reviewMode`));
 }
 
-function getShareText(detail) {
-    let text
-    if (detail.win) {
-        text = detail.topText + `\r\n` + `${detail.guesses}/25\r\n `
-    } else {
-        text = "I failed to complete " + (detail.daily ? 'the' + detail.topText : 'a Practice Referdle')
-    }
-    return text
-
-}
-
 function addText(win, guesses, streak, daily, boards) {
 
     const text1 = document.createElement("div")
@@ -90,8 +97,7 @@ function addText(win, guesses, streak, daily, boards) {
 
     if (win == true) {
         let mode = daily ? "the Daily Referdle" : "a Practice Referdle"
-        let mode2 = daily ? "Daily Mode" : "Practice Mode"
-        text1.textContent = `\r\nYou completed ${mode} in ${guesses}/25 guesses.\r\n\r\nCurrent ${mode2} Streak: ${streak}`
+        text1.textContent = `\r\nYou completed ${mode} in ${guesses}/25 guesses`
     } else {
         text1.textContent = `\r\nThe answers were ${boards[1].targetWord.toUpperCase()}, ${boards[2].targetWord.toUpperCase()}, ${boards[3].targetWord.toUpperCase()}, ${boards[4].targetWord.toUpperCase()} and ${boards[5].targetWord.toUpperCase()}\r\nYou can keep on playing in Practice Mode`
     }
