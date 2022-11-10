@@ -49,10 +49,12 @@ document.addEventListener('endGame', (e) => {
         e2.stopPropagation();
         document.dispatchEvent(new CustomEvent(`showCopiedModal`));
         let shareText = copyText.get(e.detail)
+        navigator.clipboard.writeText(shareText);
         console.log(shareText)
     }
     button.textContent = 'Share'
     content.appendChild(button)
+    button.style.fontSize = content.offsetWidth * 0.04 + 'px'
     button.style.maxHeight = button.offsetHeight + 'px'
     button.style.lineHeight = button.offsetHeight + 'px'
 

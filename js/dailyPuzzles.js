@@ -1,16 +1,16 @@
 const version = "1.02"
     async function loadPuzzles() {
 
-        let savedVersion = localStorage.getItem("puzzleVersion")
+    let savedVersion = localStorage.getItem("puzzleVersion")
 
-        let save = getPuzzlesFromLS()
-        if (save != null && version == savedVersion) {
-            console.log("we had a save and it's the same as the version we think")
-            return save
-        } else {
-            save = await downloadPuzzles()
-            return save
-        }
+    let save = getPuzzlesFromLS()
+    if (save != null && version == savedVersion) {
+        console.log("we had a save and it's the same as the version we think")
+        return save
+    } else {
+        save = await downloadPuzzles()
+        return save
+    }
  }
 
  async function downloadPuzzles(){

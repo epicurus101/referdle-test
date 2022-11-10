@@ -7,7 +7,7 @@ document.addEventListener('showCopiedModal', (e) => {
     const button = modal.querySelector('#share-button')
 
     let popup = document.createElement("div")
-    popup.style.setProperty('--animate-duration', '1s');
+
     let child = document.createElement("span")
     child.textContent = `Copied to Clipboard`
     child.style.display = "table-cell"
@@ -15,6 +15,7 @@ document.addEventListener('showCopiedModal', (e) => {
     popup.appendChild(child)
     popup.setAttribute("id", `copiedModal`);
     popup.classList.add("animate__animated");
+    popup.style.setProperty('--animate-duration', '2s');
 
     content.appendChild(popup)
     console.log(button.offsetTop, button.offsetLeft)
