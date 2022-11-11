@@ -23,7 +23,7 @@ let statElement = {
 
         let processed = statElement.processForGraph(stats)
         console.log('stats:',processed)
-        let graph = statElement.getFormattedGraph(processed)
+        let graph = statElement.getFormattedGraph(processed, stats.at(-1) ? stats.at(-1) : null)
 
         return graph
 
@@ -52,7 +52,7 @@ let statElement = {
 
     },
 
-    getFormattedGraph: function (stats) {
+    getFormattedGraph: function (stats, final) {
         let largest = Math.max(...Object.values(stats))
         let scale = statElement.getScale(largest)
 
@@ -72,6 +72,7 @@ let statElement = {
         for (let index = 0; index < 24; index++) {
             if (index == 0) {
                 let axis = document.createElement("div")
+                axis.style.zIndex = 5;
                 axis.style.borderRight = "1px solid rgb(58,58,60)"
                 axis.style.height = statElement.sideH + 'px'
                 axis.style.width = (statElement.sideW / 24) + 'px'
@@ -87,11 +88,16 @@ let statElement = {
                     bar.style.height = 0 + 'px'
                 }
 
+
+
                 bar.style.width = ((statElement.sideW / 24) - 1) + 'px'
                 if (index == 23) {
                     bar.style.backgroundColor = uColours.orange
                 } else {
-                    bar.style.backgroundColor = uColours.highlight
+                    bar.style.backgroundColor = uColours.yellow
+                }
+                if (final && (index+4) == final) {
+                    bar.style.filter = "brightness(125%)"
                 }
                 graph.append(bar)
             }
@@ -102,6 +108,7 @@ let statElement = {
             txt.classList.add("grid-axis")
             txt.style.fontSize = statElement.sideW / 30 + 'px'
             txt.style.height = statElement.sideW / 15 + 'px'
+            txt.style.zIndex = 5
             let num = index + 4
 
             if (num >= 5) {
